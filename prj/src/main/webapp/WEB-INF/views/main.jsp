@@ -7,6 +7,9 @@
 <link rel="icon" href="/sys_img/수저.png">
 <title>쿠킹레시피</title>
 <style>
+	div{
+		border: 1px solid black;
+	}
 	label{
 		display: block;
 		font-size: 19px;
@@ -87,6 +90,19 @@
 		font-size: 20px;
 		text-align: center;
 	}
+	.menubar{
+		width: 2000px;
+		height: 50px;
+		display: flex;
+		gap: 200px;
+		justify-content: center;
+		align-items: center;
+		margin: 15 auto;
+	}
+	.item{
+		cursor: pointer;
+		font-size: 20px;
+	}
 </style>
 <script>
 	function logout(){
@@ -99,7 +115,7 @@
 </head>
 <body>
 	<h1 style="margin-top:50px; text-align:center; cursor:pointer;" onclick="location.reload()">Cooking Recipe</h1>
-	<div style="text-align:right; padding:0 30 50 30;">
+	<div style="text-align:right; padding:0 30;">
 		<c:if test="${empty requestScope.mid}">
 			<span style="cursor:pointer;" onclick="location.href='/login.do'">
 				로그인
@@ -118,6 +134,12 @@
 				로그아웃
 			</span>
 		</c:if>
+	</div>
+	<div class="menubar">
+		<span class="item">레시피 공유</span>
+		<span class="item">찜한 레시피</span>
+		<span class="item">마이페이지</span>
+		<span class="item">공지사항</span>
 	</div>
 	<div style="width:2000px; height:800px; position: relative; margin: 0 auto;">
 		<div class="recipe_container">
