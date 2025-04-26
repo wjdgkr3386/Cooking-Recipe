@@ -2,13 +2,20 @@ package com.example.demo;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-public class cookingRecipeController {
+public class CookingRecipeController {
 
+	@Autowired
+	CookingRecipeService cookingRecipeService;
+	@Autowired
+	CookingRecipeDAO cookingRecipeDAO;
+	
+	
 	@RequestMapping(value="/cookingRecipe.do")
 	public ModelAndView cookingRecipe(
 		HttpSession session
@@ -41,15 +48,15 @@ public class cookingRecipeController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/writeProc.do")
+	@RequestMapping(value="/writeInsertProc.do")
 	public int writeInsertProc(
-		String content,
-		String r_code
+			CookingRecipeDTO cookingRecipeDTO
 	) {
-		
-		System.out.println(content);
-		
-		
+		try {
+			cookingRecipeService.insertRecipe(cookingRecipeDTO);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 		return 0;
 	}
 	

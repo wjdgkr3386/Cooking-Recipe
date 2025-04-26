@@ -125,7 +125,6 @@
                         const startContainer = range.startContainer;  // 커서가 있는 위치의 노드
                         if (editor.contains(startContainer)) {
                         	savedRange = range;
-                        	console.log("맞음");
                         }
                         
                 	    const img = document.createElement('img');
@@ -155,7 +154,6 @@
         const selection = window.getSelection();
         if (selection.rangeCount > 0) {
             savedRange = selection.getRangeAt(0).cloneRange();
-            console.log(savedRange);
         }
     }
     

@@ -4,3 +4,11 @@ create table user_info(
     pwd     varchar2(100)   not null,
     email   varchar2(200)   not null
 );
+
+create table recipe(
+    title           varchar2(100)   not null,
+    content         varchar2(4000)  not null,
+    content_page    number(23)      not null,
+    r_code          varchar2(4000)  not null,
+    uuid            varchar2(200)   not null
+);
