@@ -7,12 +7,6 @@
 <link rel="icon" href="/sys_img/수저.png">
 <title>쿠킹레시피</title>
 <style>
-	div{
-		/* border: 1px solid black; */
-	}
-	p{
-		border: 1px solid black;
-	}
 	label{
 		display: block;
 		font-size: 19px;
@@ -27,7 +21,6 @@
 		width: 1600px;
 		height: 100%;
 		left: 0;
-		padding: 20px;
 		overflow-y: auto;
 		overflow-x: hidden;
 	}
@@ -48,7 +41,8 @@
 	.ingredient_checkbox{
 		overflow-y: auto;
 		overflow-x: hidden;
-		height: 100%;
+		box-sizing: border-box;
+		height: 740px;
 		border: 1px solid black;
 	}
 	.search_button{
@@ -59,7 +53,40 @@
 		font-size:40px;
 		border-radius: 10px;
 	}
-	
+	.recipe_table{
+		table-layout: fixed;
+		display: grid;
+		box-sizing: border-box;
+		width: 100%;
+		height: 100%;
+		border-spacing: 30 30; /* 가로간격 세로간격 */
+		padding: 0 10px;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.card{
+		height: 485px;
+		width: 485px;
+		box-sizing: border-box;
+	}
+	.image{
+		width:100%;
+		height: 90%;
+		box-sizing: border-box;
+		border-radius: 10px;
+		box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
+		cursor: pointer;
+	}
+	.image:hover{
+		border: 2px solid #3498db;
+		transition: border 0.3s;
+	}
+	.food_name{
+		height:10%;
+		box-sizing: border-box;
+		font-size: 20px;
+		text-align: center;
+	}
 </style>
 <script>
 	function logout(){
@@ -71,7 +98,7 @@
 </script>
 </head>
 <body>
-	<h1 style="margin-top:50px; text-align:center;">Cooking Recipe</h1>
+	<h1 style="margin-top:50px; text-align:center; cursor:pointer;" onclick="location.reload()">Cooking Recipe</h1>
 	<div style="text-align:right; padding:0 30 50 30;">
 		<c:if test="${empty requestScope.mid}">
 			<span style="cursor:pointer;" onclick="location.href='/login.do'">
@@ -94,7 +121,14 @@
 	</div>
 	<div style="width:2000px; height:800px; position: relative; margin: 0 auto;">
 		<div class="recipe_container">
-			asedr
+			<table class="recipe_table">
+				<tr>
+					<td class="card">
+						<img class="image" src="/sys_img/x.png" alt="이미지">
+						<div class="food_name">요리 이름</div>
+					</td>
+				</tr>
+			</table>
 		</div>
 		<div class="ingredient_container">
 			<div class="search_button_div">
