@@ -8,13 +8,12 @@
 <meta charset="UTF-8">
 <title>기본 서식 툴</title>
 <style>
-
-      body {
-          margin: 0;
-          padding: 0;
-          overflow-x: hidden;
-          font-family: sans-serif;
-      }
+	body {
+	    margin: 0;
+	    padding: 0;
+	    overflow-x: hidden;
+	    font-family: sans-serif;
+	}
 	.savebar{
 		display: flex;
 		justify-content: space-between;
@@ -37,12 +36,22 @@
 		color: green;
 		font-weight: 500;
 	}
-
+	.title{
+		height: 60px;
+		width: 99%;
+		border-radius: 10px;
+		margin: 0 10;
+		padding: 10 15;
+		box-sizing: border-box;
+		background-color: #FFF5F8;
+		border: none;
+		font-size: 20px;
+	}
     .toolbar {
         margin: 20px 10px;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
     }
 
     .tool {
@@ -78,14 +87,78 @@
     }
 </style>
 <script>
-    $(function () {
+	let savedRange;
+	let editor;
+	$(function(){init();});
+	function init(){
+		//커서 저장
+    	editor = document.querySelector('.editor');
+    	editor.focus();
+		const range = document.createRange();
+		range.selectNodeContents(editor);
+		range.collapse(true);
+		savedRange = range.cloneRange();
+		
+	    // 실시간으로 커서 위치 추적
+	    editor.addEventListener('focus', updateSavedRange);
+	    editor.addEventListener('keyup', updateSavedRange);
+	    editor.addEventListener('click', updateSavedRange);
+
         $(".editor").on('input', function () {
             if (this.innerHTML.trim() === "<br>" || this.innerHTML.trim() === "<div><br></div>") {
                 this.innerHTML = '';
             }
         });
-    });
+        
+        $('#fileInput').change(function(event) {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // e.target.result는 읽어들인 파일 데이터를 포함합니다. 일종의 경로이다.
+                    const url = e.target.result;
+                    
+                	const selection = window.getSelection();
+                	
+                	if (selection.rangeCount > 0) {
+                		const range = selection.getRangeAt(0);
+                        const startContainer = range.startContainer;  // 커서가 있는 위치의 노드
+                        if (editor.contains(startContainer)) {
+                        	savedRange = range;
+                        	console.log("맞음");
+                        }
+                        
+                	    const img = document.createElement('img');
+                	    img.src = url;
+                	    img.style.maxWidth = '100%';
+                	    img.style.display = 'block';
+                	    
+                	    //이미지 넣기
+                	    savedRange.insertNode(img);
+                	    
+                	    //이미지를 넣고 커서를 이미지 뒤로 이동
+                        savedRange.setStartAfter(img);
+                        savedRange.setEndAfter(img);
+                        selection.removeAllRanges();
+                        selection.addRange(savedRange);
+                        
+                        $('#fileInput').val('');
+            		}
+                };
+                reader.readAsDataURL(file); // 파일을 Data URL 형식으로 읽습니다.
+            }
+        });
+    }
 
+	//커서 마지막 위치 추적
+    function updateSavedRange() {
+        const selection = window.getSelection();
+        if (selection.rangeCount > 0) {
+            savedRange = selection.getRangeAt(0).cloneRange();
+            console.log(savedRange);
+        }
+    }
+    
     function execCommand(command, value = '') {
         const selection = window.getSelection();
         if (selection.rangeCount > 0) {
@@ -116,7 +189,7 @@
     function sendContent(){
     	const content = $(".editor").html();
     	$("[name='content']").val(content);
-    	$("[name='r_code']").(rCode(17));
+    	$("[name='r_code']").val(rCode(17));
     	
     	var formObj = $("[name='contentForm']");
 		ajax(
@@ -131,6 +204,7 @@
 </script>
 </head>
 <body>
+<form name="contentForm">
 	<div class="savebar">
 		<span>
 			<img src="/sys_img/x.png" style="height:20px; height:20px; padding:20px; cursor:pointer;">
@@ -142,7 +216,13 @@
 		</span>
 	</div>
 	<hr>
+	<div style="width:100%;">
+		<input type="text" name="title" class="title" placeholder="제목">
+	</div>
     <div class="toolbar">
+    	<img class="tool" src="/sys_img/이미지.png" style="border-radius:5px; height:25px; margin: 0 15px;" onclick="$('#fileInput').click();">
+    	<input type="file" id="fileInput" name="image" style="display:none;">
+    	
         <select class="tool" onchange="fontStyle(this.value)">
             <option value="sans-serif">기본서체</option>
             <option value="Malgun Gothic">맑은고딕</option>
@@ -154,10 +234,10 @@
             <option value="Gungsuh">궁서체</option>
         </select>
 
-        <button class="tool" onclick="execCommand('bold')">굵게</button>
-        <button class="tool" onclick="execCommand('italic')">이탤릭체</button>
-        <button class="tool" onclick="execCommand('underline')">밑줄</button>
-        <button class="tool" onclick="execCommand('strikeThrough')">취소선</button>
+        <input type="button" class="tool" value="굵게" onclick="execCommand('bold')">
+        <input type="button" class="tool" value="이탤릭체" onclick="execCommand('italic')">
+        <input type="button" class="tool" value="밑줄" onclick="execCommand('underline')">
+        <input type="button" class="tool" value="취소선" onclick="execCommand('strikeThrough')">
 
         <select class="tool" onchange="setFontSize(this.value)">
             <option value="1">10</option>
@@ -207,10 +287,8 @@
     </div>
 
     <div class="editor" contenteditable="true" spellcheck="false"></div>
-    
-    <form name="contentForm">
-    	<input type="hidden" name="content">
-    	<input type="hidden" name="r_code">
-    </form>
+	<input type="hidden" name="content">
+	<input type="hidden" name="r_code">
+</form>
 </body>
 </html>
