@@ -14,7 +14,6 @@ public class cookingRecipeController {
 		HttpSession session
 	) {
 		String mid = (String) session.getAttribute("mid");
-		System.out.println(mid);
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("mid", mid);
