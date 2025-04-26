@@ -51,6 +51,9 @@
 			return;
 		}
 		
+		//랜덤 uid 생성
+		$("[name='uuid']").val(rCode(15);
+		
 		var formObj = $("[name='signUpForm']");
 		ajax(
 		     "/signUpProc.do",
@@ -127,6 +130,7 @@
 		<input type="email" class="inputField" name="email" placeholder="이메일">
 		
 		<input type="button" class="signUp" value="회원가입" onclick="signUp()">
+		<input type="hidden" name="uid">
 	</div>
 </form>
 </center>

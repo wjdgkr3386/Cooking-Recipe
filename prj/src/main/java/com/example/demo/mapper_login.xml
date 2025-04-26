@@ -14,10 +14,12 @@
 
 	<insert id="insertUserInfo" parameterType="com.example.demo.LoginDTO">
 		insert into user_info(
+			uuid,
 			mid,
 			pwd,
 			email
 		)values(
+			#{uuid},
 			#{mid},
 			#{pwd},
 			#{email}

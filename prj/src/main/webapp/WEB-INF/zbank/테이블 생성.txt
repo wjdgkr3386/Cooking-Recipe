@@ -1,5 +1,6 @@
 create table user_info(
-    mid     varchar2(100)   primary key,
+    uuid    varchar2(200)   primary key,
+    mid     varchar2(100)   unique,
     pwd     varchar2(100)   not null,
     email   varchar2(200)   not null
 );

@@ -136,7 +136,7 @@
 		</c:if>
 	</div>
 	<div class="menubar">
-		<span class="item">레시피 공유</span>
+		<span class="item" onclick="location.href='/write.do'">레시피 공유</span>
 		<span class="item">찜한 레시피</span>
 		<span class="item">마이페이지</span>
 		<span class="item">공지사항</span>
