@@ -258,7 +258,7 @@
 <form name="contentForm">
 	<div class="savebar">
 		<span>
-			<img src="/sys_img/x.png" style="height:20px; height:20px; padding:20px; cursor:pointer;">
+			<img src="/sys_img/x.png" style="height:20px; height:20px; padding:20px; cursor:pointer;" onclick="location.href='/cookingRecipe.do'">
 		</span>
 		<span>
 			<input class="save" type="button" value="임시">
