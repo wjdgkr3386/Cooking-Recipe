@@ -159,12 +159,32 @@
 	<div style="width:2000px; height:800px; position: relative; margin: 0 auto;">
 		<div class="recipe_container">
 			<table class="recipe_table">
-				<tr>
-					<td class="card">
-						<img class="image" src="/sys_img/x.png" alt="이미지">
-						<div class="food_name">요리 이름</div>
-					</td>
-				</tr>
+				<c:if test="${requestScope.recipeListSize > 0}">
+					<c:forEach begin="0" end="${(requestScope.recipeListSize-1)/3}" varStatus="stat">
+						<c:choose>
+							<c:when test="${stat.index != (requestScope.recipeListSize-1)/3}">
+						    	<tr>
+									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${(stat.index*3)+2}">
+										<td class="card">
+											<img class="image" src="/sys_img/x.png" alt="이미지">
+											<div class="food_name">요리 이름</div>
+										</td>
+									</c:forEach>
+								</tr>
+							</c:when>
+						    <c:otherwise>
+								<tr>
+									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${(stat.index*3)+((requestScope.recipeListSize-1)%3)}">
+										<td class="card">
+											<img class="image" src="/sys_img/x.png" alt="이미지">
+											<div class="food_name">요리 이름</div>
+										</td>
+									</c:forEach>
+								</tr>
+						    </c:otherwise>
+						</c:choose>
+					</c:forEach>
+				</c:if>
 			</table>
 		</div>
 		<div class="ingredient_container">

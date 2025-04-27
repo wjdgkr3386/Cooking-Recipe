@@ -27,6 +27,25 @@
 		)
 	</insert>
 	
+	<select id="getRecipe" resultType="java.util.HashMap">
+		select * from ( select  rownum RNUM, zxcvb.* from  (
+				
+			select
+				r.r_code as "R_CODE",
+				r.title as "TITLE",
+				r.uuid as "UUID",
+				r.recommend as "RECOMMEND",
+				rc.content as "CONTENT"
+			from
+				recipe r,
+				recipe_content rc
+			where
+				r.r_code = rc.r_code
+
+    <![CDATA[
+        ) zxcvb) where  RNUM  >= 1  and RNUM <= 30
+    ]]>
+	</select>
 	
 	
 </mapper>

@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +26,10 @@ public class CookingRecipeController {
 		String mid = (String) session.getAttribute("mid");
 		ModelAndView mav = new ModelAndView();
 		
+		List<Map<String,Object>> recipeList = cookingRecipeDAO.getRecipe();
+
+		mav.addObject("recipeList", recipeList);
+		mav.addObject("recipeListSize", recipeList.size());
 		mav.addObject("mid", mid);
 		mav.setViewName("main.jsp");
 		return mav;

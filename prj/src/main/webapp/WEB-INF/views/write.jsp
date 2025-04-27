@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>기본 서식 툴</title>
 <style>
-	body {
+	body{
 	    margin: 0;
 	    padding: 0;
 	    overflow-x: hidden;
@@ -92,6 +92,33 @@
     	height:25px;
     	margin: 0 15px;
     }
+    
+    .upload-box{
+    	border: 1px solid black;
+    	border-radius: 10px;
+    	width: 400px;
+    	height: 400px;
+    	cursor: pointer;
+    	display: flex;
+		justify-content: center;
+		align-items: center;
+		margin: 100 auto;
+		
+    }
+    
+    .toolbarHeader{
+    	height: 60px;
+    	width: 100%;
+    	border-bottom: 1px solid grey;
+        margin: 0;
+        display: none;
+        align-items: center;
+        gap: 15px;
+        position: fixed; /* 화면에 고정 */
+	    top: 0; /* 화면 최상단 위치 */
+	    left: 0;
+	    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
+    }
 </style>
 <script>
 	let savedRange;
@@ -161,7 +188,30 @@
                 event.preventDefault();
             }
         });
-    }
+        
+        $('#foodImg').change(function(event) {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // e.target.result는 읽어들인 파일 데이터를 포함합니다. 일종의 경로이다.
+                    $('.upload-box').html('<img src="' + e.target.result + '" alt="Profile Picture">');
+                };
+                reader.readAsDataURL(file); // 파일을 Data URL 형식으로 읽습니다.
+            }
+        });
+        
+		window.addEventListener("scroll", function () {
+		    let header = $(".toolbarHeader"); // 헤더 요소
+		    let scrollY = window.scrollY;
+
+		    if (scrollY > 200) { 
+		        header.css({"display":"flex"});
+		    } else {
+		    	header.css({"display":"none"});
+		    }
+		});
+    }//init 종료ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 	//커서 마지막 위치 추적
     function updateSavedRange() {
@@ -338,9 +388,90 @@
         <img class="alignment tool" src="/sys_img/오른쪽정렬.png" onclick="alignText('justifyright')">
     </div>
 
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+	<!-- 편집기 -->
+	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
     <div class="editor" contenteditable="true" spellcheck="false"></div>
+
+
+
+    <div class="upload-box" onclick="$('#foodImg').click()">
+    	완성된 음식 사진을 올려주세요.
+    </div>
+    <input type="file" id="foodImg" name="image" style="display:none;">
+    
 	<input type="hidden" name="content">
 	<input type="hidden" name="r_code">
 </form>
+
+
+<!-- 상단에 고정할 헤더 -->
+<div class="toolbarHeader">
+    	<img class="tool image" src="/sys_img/이미지.png" onclick="$('#fileInput').click();">
+    	<input type="file" id="fileInput" name="image" style="display:none;">
+    	
+        <select class="tool" onchange="fontStyle(this.value)">
+            <option value="sans-serif">기본서체</option>
+            <option value="Malgun Gothic">맑은고딕</option>
+            <option value="Nanum Gothic">나눔고딕</option>
+            <option value="NanumSquare">나눔스퀘어</option>
+            <option value="Gulim">굴림체</option>
+            <option value="Dotum">돋움체</option>
+            <option value="Batang">바탕체</option>
+            <option value="Gungsuh">궁서체</option>
+        </select>
+
+        <input type="button" class="tool" value="굵게" onclick="execCommand('bold')">
+        <input type="button" class="tool" value="이탤릭체" onclick="execCommand('italic')">
+        <input type="button" class="tool" value="밑줄" onclick="execCommand('underline')">
+        <input type="button" class="tool" value="취소선" onclick="execCommand('strikeThrough')">
+        <img class="tool image" src="/sys_img/수평선.png" onclick="inputHr()">
+
+        <select class="tool" onchange="setFontSize(this.value)">
+            <option value="1">10</option>
+            <option value="2">13</option>
+            <option value="3">16</option>
+            <option value="4" selected>18</option>
+            <option value="5">24</option>
+            <option value="6">32</option>
+            <option value="7">48</option>
+        </select>
+
+        <select class="tool" onchange="setFontColor(this.value)">
+            <option value="#000000">글자색상</option>
+            <option value="#000000">검정</option>
+            <option value="#808080">회색</option>
+            <option value="#ffffff">하양</option>
+            <option value="#ff0000">빨강</option>
+            <option value="#ff7f00">주황</option>
+            <option value="#ffff00">노랑</option>
+            <option value="#adff2f">연두</option>
+            <option value="#008000">초록</option>
+            <option value="#00ffff">하늘</option>
+            <option value="#0000ff">파랑</option>
+            <option value="#800080">보라</option>
+            <option value="#ff69b4">분홍</option>
+        </select>
+
+        <select class="tool" onchange="setBackgroundColor(this.value)">
+            <option value="#ffffff">배경색상</option>
+            <option value="#000000">검정</option>
+            <option value="#808080">회색</option>
+            <option value="#ffffff">하양</option>
+            <option value="#ff0000">빨강</option>
+            <option value="#ff7f00">주황</option>
+            <option value="#ffff00">노랑</option>
+            <option value="#adff2f">연두</option>
+            <option value="#008000">초록</option>
+            <option value="#00ffff">하늘</option>
+            <option value="#0000ff">파랑</option>
+            <option value="#800080">보라</option>
+            <option value="#ff69b4">분홍</option>
+        </select>
+
+        <img class="alignment tool" src="/sys_img/왼쪽정렬.png" onclick="alignText('justifyleft')">
+        <img class="alignment tool" src="/sys_img/가운데정렬.png" onclick="alignText('justifycenter')">
+        <img class="alignment tool" src="/sys_img/오른쪽정렬.png" onclick="alignText('justifyright')">
+    </div>
 </body>
 </html>
