@@ -52,7 +52,7 @@
 		}
 		
 		//랜덤 uid 생성
-		$("[name='uuid']").val(rCode(15);
+		$("[name='uuid']").val(rCode(15));
 		
 		var formObj = $("[name='signUpForm']");
 		ajax(
@@ -62,6 +62,8 @@
 		     function (cnt) {
 		    	 if(cnt == -13){
 		    		 alert("이미 계정이 있습니다.");
+		    	 }else if(cnt == -12){
+		    		 signUp();
 		    	 }else if(cnt > 0){
 		    		 location.replace("/login.do");
 		    	 }else if(cnt == 0){
@@ -130,7 +132,7 @@
 		<input type="email" class="inputField" name="email" placeholder="이메일">
 		
 		<input type="button" class="signUp" value="회원가입" onclick="signUp()">
-		<input type="hidden" name="uid">
+		<input type="hidden" name="uuid">
 	</div>
 </form>
 </center>

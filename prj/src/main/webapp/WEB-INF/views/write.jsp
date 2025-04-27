@@ -147,6 +147,13 @@
                 reader.readAsDataURL(file); // 파일을 Data URL 형식으로 읽습니다.
             }
         });
+        
+        $("[name='contentForm'] input[name='title']").on('keydown', function(event) {
+            if (event.key === 'Enter') {
+                //폼 제출 방지
+                event.preventDefault();
+            }
+        });
     }
 
 	//커서 마지막 위치 추적
@@ -248,7 +255,7 @@
         </select>
 
         <select class="tool" onchange="setFontColor(this.value)">
-            <option value="#000000">글자</option>
+            <option value="#000000">글자색상</option>
             <option value="#000000">검정</option>
             <option value="#808080">회색</option>
             <option value="#ffffff">하양</option>
@@ -264,7 +271,7 @@
         </select>
 
         <select class="tool" onchange="setBackgroundColor(this.value)">
-            <option value="#ffffff">배경</option>
+            <option value="#ffffff">배경색상</option>
             <option value="#000000">검정</option>
             <option value="#808080">회색</option>
             <option value="#ffffff">하양</option>

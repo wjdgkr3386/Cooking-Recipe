@@ -46,12 +46,16 @@ public class LoginController {
 		mav.setViewName("signUp.jsp");
 		return mav;
 	}
-	
+
 	@RequestMapping(value="/signUpProc.do")
 	public int signUpProc(
 		LoginDTO loginDTO
 	) {
 		int cnt = 0;
+		
+		if(loginDAO.checkUuid(loginDTO)>0) {
+			return -12;
+		}
 		
 		//계정이 이미 있는지 체크
 		if(loginDAO.checkMid(loginDTO)>0) {
@@ -65,6 +69,14 @@ public class LoginController {
 		}
 		
 		return cnt;
+	}
+	
+	@RequestMapping(value="/logout.do")
+	public int logout(
+		HttpSession session
+	) {
+		session.removeAttribute("mid");
+		return 1;
 	}
 	
 	

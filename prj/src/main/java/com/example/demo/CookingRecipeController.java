@@ -40,7 +40,6 @@ public class CookingRecipeController {
 	
 	@RequestMapping(value="/write.do")
 	public ModelAndView write(
-			
 	) {
 		ModelAndView mav = new ModelAndView();
 		

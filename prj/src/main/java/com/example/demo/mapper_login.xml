@@ -3,6 +3,16 @@
 
 <mapper namespace="com.example.demo.LoginDAO">
 
+
+	<select id="checkUuid" parameterType="com.example.demo.LoginDTO" resultType="int">
+		select
+			count(*)
+		from
+			user_info
+		where
+			uuid=#{uuid}
+	</select>
+
 	<select id="checkMid" parameterType="com.example.demo.LoginDTO" resultType="int">
 		select
 			count(*)
