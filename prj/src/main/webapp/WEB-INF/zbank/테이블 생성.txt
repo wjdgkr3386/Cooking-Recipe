@@ -7,8 +7,7 @@ create table user_info(
 
 create table recipe(
     title           varchar2(100)   not null,
-    content         varchar2(4000)  not null,
-    content_page    number(23)      not null,
+    content         CLOB            not null,
     r_code          varchar2(4000)  not null,
     uuid            varchar2(200)   not null
 );

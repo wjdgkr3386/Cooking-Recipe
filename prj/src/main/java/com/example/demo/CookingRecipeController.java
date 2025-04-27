@@ -49,10 +49,13 @@ public class CookingRecipeController {
 	
 	@RequestMapping(value="/writeInsertProc.do")
 	public int writeInsertProc(
-			CookingRecipeDTO cookingRecipeDTO
+		CookingRecipeDTO cookingRecipeDTO
 	) {
+		String content = cookingRecipeDTO.getContent();
+		System.out.println(content);
+		System.out.println("content 길이 " + content.length());
 		try {
-			cookingRecipeService.insertRecipe(cookingRecipeDTO);
+			//cookingRecipeService.insertRecipe(cookingRecipeDTO);
 		}catch(Exception e) {
 			System.out.println(e);
 		}
