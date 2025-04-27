@@ -5,7 +5,7 @@ public class CookingRecipeDTO {
 	String title;
 	String content;
 	String r_code;
-	
+	String mid;
 	
 	public String getTitle() {
 		return title;
@@ -25,6 +25,10 @@ public class CookingRecipeDTO {
 	public void setR_code(String r_code) {
 		this.r_code = r_code;
 	}
-	
-	
+	public String getMid() {
+		return mid;
+	}
+	public void setMid(String mid) {
+		this.mid = mid;
+	}
 }

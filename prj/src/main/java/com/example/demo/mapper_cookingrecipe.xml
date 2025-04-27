@@ -4,6 +4,29 @@
 <mapper namespace="com.example.demo.CookingRecipeDAO">
 	
 	<insert id="insertRecipe" parameterType="com.example.demo.CookingRecipeDTO">
-		
+		insert into recipe (
+			title,
+			r_code,
+			uuid
+		) values (
+			#{title},
+			#{r_code},
+			(select uuid from user_info where mid=#{mid})			
+		)
 	</insert>
+	
+	<insert id="insertRecipe_content" parameterType="com.example.demo.CookingRecipeDTO">
+		insert into recipe_content (
+			r_code,
+			uuid,
+			content
+		) values (
+			#{r_code},
+			(select uuid from user_info where mid=#{mid}),
+			#{content}
+		)
+	</insert>
+	
+	
+	
 </mapper>

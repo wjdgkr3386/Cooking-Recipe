@@ -49,17 +49,22 @@ public class CookingRecipeController {
 	
 	@RequestMapping(value="/writeInsertProc.do")
 	public int writeInsertProc(
-		CookingRecipeDTO cookingRecipeDTO
+		CookingRecipeDTO cookingRecipeDTO,
+		HttpSession session
 	) {
-		String content = cookingRecipeDTO.getContent();
-		System.out.println(content);
-		System.out.println("content 길이 " + content.length());
+		String mid = (String) session.getAttribute("mid");
+		if(mid==null) {
+			return -11;
+		}
+		cookingRecipeDTO.setMid(mid);
+		
+		int cnt=0;
 		try {
-			//cookingRecipeService.insertRecipe(cookingRecipeDTO);
+			cnt = cookingRecipeService.insertRecipe(cookingRecipeDTO);
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		return 0;
+		return cnt;
 	}
 	
 	

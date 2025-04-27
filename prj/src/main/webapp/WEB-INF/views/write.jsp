@@ -69,6 +69,7 @@
         border: 1px solid grey;
         padding: 10px;
         font-size: 16px;
+        outline: none;
     }
 
     .alignment {
@@ -84,6 +85,12 @@
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
+    }
+    
+    .image{
+    	border-radius:5px;
+    	height:25px;
+    	margin: 0 15px;
     }
 </style>
 <script>
@@ -164,6 +171,29 @@
         }
     }
     
+	function inputHr(){
+		const selection = window.getSelection();
+		
+		if (selection.rangeCount > 0) {
+			const range = selection.getRangeAt(0);
+            const startContainer = range.startContainer;  // 커서가 있는 위치의 노드
+            if (editor.contains(startContainer)) {
+            	savedRange = range;
+            }
+            
+            const hr = document.createElement('hr');
+            hr.style.display = 'block';
+            hr.style.border = 'none';
+            hr.style.borderTop = '2px solid #F2C9D4';
+            
+            savedRange.insertNode(hr);
+            savedRange.setStartAfter(hr);
+            savedRange.setEndAfter(hr);
+            selection.removeAllRanges();
+            selection.addRange(savedRange);
+		}
+	}
+	
     function execCommand(command, value = '') {
         const selection = window.getSelection();
         if (selection.rangeCount > 0) {
@@ -193,17 +223,33 @@
     
     function sendContent(){
     	const content = $(".editor").html();
+    	const title = $("[name='title']").val().trim();
+    	
+    	if(title===""){
+    		alert("제목을 입력해주세요.");
+    		return;
+    	}else if(title.length>25){
+    		alert("제목은 25글자 이하로 써주세요.");
+    	}
+    	
     	$("[name='content']").val(content);
     	$("[name='r_code']").val(rCode(17));
     	
     	var formObj = $("[name='contentForm']");
 		ajax(
-		     "/writeInsertProc.do",
-		     "post",
-		     formObj,
-		     function (cnt) {
-		    	 alert(cnt);
-		     }
+			"/writeInsertProc.do",
+			"post",
+			formObj,
+			function (cnt) {
+				if(cnt>0){
+					location.replace("/cookingRecipe.do");
+				}else if(cnt== -11){
+					alert("세션이 없습니다.");
+					location.replace("/login.do");
+				}else if(cnt==0){
+					alert("실패");
+				}
+			}
 		);
     }
 </script>
@@ -225,7 +271,7 @@
 		<input type="text" name="title" class="title" placeholder="제목">
 	</div>
     <div class="toolbar">
-    	<img class="tool" src="/sys_img/이미지.png" style="border-radius:5px; height:25px; margin: 0 15px;" onclick="$('#fileInput').click();">
+    	<img class="tool image" src="/sys_img/이미지.png" onclick="$('#fileInput').click();">
     	<input type="file" id="fileInput" name="image" style="display:none;">
     	
         <select class="tool" onchange="fontStyle(this.value)">
@@ -243,6 +289,7 @@
         <input type="button" class="tool" value="이탤릭체" onclick="execCommand('italic')">
         <input type="button" class="tool" value="밑줄" onclick="execCommand('underline')">
         <input type="button" class="tool" value="취소선" onclick="execCommand('strikeThrough')">
+        <img class="tool image" src="/sys_img/수평선.png" onclick="inputHr()">
 
         <select class="tool" onchange="setFontSize(this.value)">
             <option value="1">10</option>
