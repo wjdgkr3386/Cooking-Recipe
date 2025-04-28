@@ -47,5 +47,15 @@
     ]]>
 	</select>
 	
+	<insert id="insertImgBase64" parameterType="com.example.demo.CookingRecipeDTO">
+		insert into recipe_img(
+			img,
+			r_code
+		)values(
+			#{foodImgBase64},
+			#{r_code}
+		)
+	</insert>
+	
 	
 </mapper>

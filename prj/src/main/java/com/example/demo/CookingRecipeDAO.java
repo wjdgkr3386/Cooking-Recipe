@@ -13,4 +13,6 @@ public interface CookingRecipeDAO {
 	int insertRecipe_content(CookingRecipeDTO cookingRecipeDTO);
 	
 	List<Map<String,Object>> getRecipe();
+	
+	int insertImgBase64(CookingRecipeDTO cookingRecipeDTO);
 }

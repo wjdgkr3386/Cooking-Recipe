@@ -68,6 +68,8 @@ public class CookingRecipeController {
 		int cnt=0;
 		try {
 			cnt = cookingRecipeService.insertRecipe(cookingRecipeDTO);
+		}catch(RuntimeException r) {
+			cnt = Integer.parseInt(r.getMessage());
 		}catch(Exception e) {
 			System.out.println(e);
 		}

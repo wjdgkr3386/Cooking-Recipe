@@ -296,6 +296,12 @@
 				}else if(cnt== -11){
 					alert("세션이 없습니다.");
 					location.replace("/login.do");
+				}else if(cnt== -18){
+					alert("완성된 요리의 사진이 지정된 확장자가 아닙니다. jpg, jpeg, jfif, png");
+				}else if(cnt== -19){
+					alert("완성된 요리의 사진이 없습니다.");
+				}else if(cnt== -20){
+					alert("완성된 요리의 사진에 문제가 있습니다.");
 				}else if(cnt==0){
 					alert("실패");
 				}
@@ -398,7 +404,7 @@
     <div class="upload-box" onclick="$('#foodImg').click()">
     	완성된 음식 사진을 올려주세요.
     </div>
-    <input type="file" id="foodImg" name="image" style="display:none;">
+    <input type="file" id="foodImg" name="foodImg" style="display:none;">
     
 	<input type="hidden" name="content">
 	<input type="hidden" name="r_code">
