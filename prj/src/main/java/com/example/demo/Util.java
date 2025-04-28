@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -51,8 +49,6 @@ public class Util {
 				System.out.println(e);
 				cnt = -20;
 			}
-		}else {
-			cnt = -19;
 		}
 		return cnt;
 	}

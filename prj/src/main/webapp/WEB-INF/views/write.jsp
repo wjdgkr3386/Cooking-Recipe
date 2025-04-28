@@ -184,7 +184,6 @@
         
         $("[name='contentForm'] input[name='title']").on('keydown', function(event) {
             if (event.key === 'Enter') {
-                //폼 제출 방지
                 event.preventDefault();
             }
         });
@@ -198,6 +197,8 @@
                     $('.upload-box').html('<img src="' + e.target.result + '" alt="Profile Picture">');
                 };
                 reader.readAsDataURL(file); // 파일을 Data URL 형식으로 읽습니다.
+            }else{
+            	$('.upload-box').html('완성된 음식 사진을 올려주세요.');
             }
         });
         
@@ -271,7 +272,7 @@
         execCommand(alignType);
     }
     
-    function sendContent(){
+    function uploadContent(){
     	const content = $(".editor").html();
     	const title = $("[name='title']").val().trim();
     	
@@ -298,8 +299,7 @@
 					location.replace("/login.do");
 				}else if(cnt== -18){
 					alert("완성된 요리의 사진이 지정된 확장자가 아닙니다. jpg, jpeg, jfif, png");
-				}else if(cnt== -19){
-					alert("완성된 요리의 사진이 없습니다.");
+					$("#foodImg").val('');
 				}else if(cnt== -20){
 					alert("완성된 요리의 사진에 문제가 있습니다.");
 				}else if(cnt==0){
@@ -307,6 +307,35 @@
 				}
 			}
 		);
+    }
+    
+    
+    function TemporarySave(){
+
+    	const content = $(".editor").html();
+    	const title = $("[name='title']").val().trim();
+		const r_code = $("[name='r_code']");
+		
+    	$("[name='content']").val(content);
+    	if(r_code.val()===''){
+    		$("[name='r_code']").val(rCode(17));
+    	}
+
+    	var formObj = $("[name='contentForm']");
+    	ajax(
+   			"/writeTemporarySaveProc.do",
+   			"post",
+   			formObj,
+   			function (cnt) {
+   				if(cnt>0){
+   					alert("성공");
+   				}else if(cnt== -18){
+   					alert("완성된 요리의 사진이 지정된 확장자가 아닙니다. jpg, jpeg, jfif, png");
+   				}else{
+   					alert("실패");
+   				}
+   			}
+    	);
     }
 </script>
 </head>
@@ -317,9 +346,9 @@
 			<img src="/sys_img/x.png" style="height:20px; height:20px; padding:20px; cursor:pointer;" onclick="location.href='/cookingRecipe.do'">
 		</span>
 		<span>
-			<input class="save" type="button" value="임시">
-			<input class="save" type="button" value="임시등록">
-			<input class="save save_btn" type="button" value="등록" onclick="sendContent()">
+			<input class="save" type="button" value="임시" onclick="location.href='/write/saved.do'">
+			<input class="save" type="button" value="임시등록" onclick="TemporarySave()">
+			<input class="save save_btn" type="button" value="등록" onclick="uploadContent()">
 		</span>
 	</div>
 	<hr>

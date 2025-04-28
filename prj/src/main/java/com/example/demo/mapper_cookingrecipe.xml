@@ -47,8 +47,55 @@
     ]]>
 	</select>
 	
-	<insert id="insertImgBase64" parameterType="com.example.demo.CookingRecipeDTO">
+	<insert id="insertImg" parameterType="com.example.demo.CookingRecipeDTO">
 		insert into recipe_img(
+			img,
+			r_code
+		)values(
+			#{foodImgBase64},
+			#{r_code}
+		)
+	</insert>
+	
+	<delete id="deleteTemp_recipe" parameterType="com.example.demo.CookingRecipeDTO">
+		delete from temp_recipe where r_code=#{r_code}
+	</delete>
+	
+	<delete id="deleteTemp_recipe_content" parameterType="com.example.demo.CookingRecipeDTO">
+		delete from temp_recipe_content where r_code=#{r_code}
+	</delete>
+	
+	<delete id="deleteTemp_recipe_img" parameterType="com.example.demo.CookingRecipeDTO">
+		delete from temp_recipe_img where r_code=#{r_code}
+	</delete>
+	
+	
+	<insert id="insertTemp_recipe" parameterType="com.example.demo.CookingRecipeDTO">
+		insert into temp_recipe (
+			title,
+			r_code,
+			uuid
+		) values (
+			#{title},
+			#{r_code},
+			(select uuid from user_info where mid=#{mid})			
+		)
+	</insert>
+	
+	<insert id="insertTemp_recipe_content" parameterType="com.example.demo.CookingRecipeDTO">
+		insert into temp_recipe_content (
+			r_code,
+			uuid,
+			content
+		) values (
+			#{r_code},
+			(select uuid from user_info where mid=#{mid}),
+			#{content}
+		)
+	</insert>
+	
+	<insert id="insertTemp_recipe_img" parameterType="com.example.demo.CookingRecipeDTO">
+		insert into temp_recipe_img(
 			img,
 			r_code
 		)values(

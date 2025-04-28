@@ -76,5 +76,31 @@ public class CookingRecipeController {
 		return cnt;
 	}
 	
+	@RequestMapping(value="/writeTemporarySaveProc.do")
+	public int writeTemporarySaveProc(
+		CookingRecipeDTO cookingRecipeDTO,
+		HttpSession session
+	) {
+		String mid = (String) session.getAttribute("mid");
+		if(mid==null) {
+			return -11;
+		}
+		cookingRecipeDTO.setMid(mid);
+
+		int cnt = 0;
+		try {
+			cnt = cookingRecipeService.tempSave(cookingRecipeDTO);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return cnt;
+	}
 	
+	@RequestMapping(value="/write/saved.do")
+	public ModelAndView saved(
+	) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("saved.jsp");
+		return mav;
+	}
 }

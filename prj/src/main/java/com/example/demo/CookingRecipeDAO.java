@@ -9,10 +9,17 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CookingRecipeDAO {
 
 	int insertRecipe(CookingRecipeDTO cookingRecipeDTO);
-	
 	int insertRecipe_content(CookingRecipeDTO cookingRecipeDTO);
-	
+	int insertImg(CookingRecipeDTO cookingRecipeDTO);
+
 	List<Map<String,Object>> getRecipe();
 	
-	int insertImgBase64(CookingRecipeDTO cookingRecipeDTO);
+
+	int deleteTemp_recipe(CookingRecipeDTO cookingRecipeDTO);
+	int deleteTemp_recipe_content(CookingRecipeDTO cookingRecipeDTO);
+	int deleteTemp_recipe_img(CookingRecipeDTO cookingRecipeDTO);
+	
+	int insertTemp_recipe(CookingRecipeDTO cookingRecipeDTO);
+	int insertTemp_recipe_content(CookingRecipeDTO cookingRecipeDTO);
+	int insertTemp_recipe_img(CookingRecipeDTO cookingRecipeDTO);
 }
