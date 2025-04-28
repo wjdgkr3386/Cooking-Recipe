@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,7 +53,15 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 				}
 			}
 		}
-		
 		return 1;
+	}
+	
+	public int deleteTemp(CookingRecipeDTO cookingRecipeDTO) {
+		int cnt=0;
+		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
+		cookingRecipeDAO.deleteTemp_recipe_img(cookingRecipeDTO);
+		cnt = cookingRecipeDAO.deleteTemp_recipe(cookingRecipeDTO);
+		
+		return cnt;
 	}
 }

@@ -5,11 +5,95 @@
 <head>
 <meta charset="UTF-8">
 <title>임시</title>
+<style>	
+	body{
+	    margin: 0;
+	    padding: 0;
+	    overflow-x: hidden;
+	}
+	.header {
+		border: 1px solid #FFF5F8;
+		box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
+		width: 100%;
+		height: 60px;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.headerText {
+		font-size: 20px;
+		font-weight: bold;
+	}
+	.tempRecipeDiv{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border: 1px solid #FFF5F8;
+		box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+		width: 100%;
+		height: 60px;
+	}
+	.title{
+		cursor: pointer;
+		height: 60px;
+		width: 100%;
+		display:inline-block;
+		text-align: left;
+		line-height: 60px;
+		padding-left: 15px;
+	}
+	.deleteBtn{
+		height: 60px;
+		cursor: pointer;
+		box-sizing: border-box;
+		padding: 10px;
+	}
+</style>
 <script>
+function load(r_code){
+	if(!confirm("임시글을 불러오면\n작성 중인 글은 사라집니다.\n선택한 글을 불러오시겠습니까?")){
+		return;
+	}
+}
 
+function deleteRecipe(r_code){
+	if(!confirm("선택한 임시글을 삭제하시겠습니까?")){
+		return;
+	}
+	
+	$("[name='r_code']").val(r_code);
+	var formObj = $("[name='tempForm']");
+	ajax(
+		"/tempDeleteProc.do",
+		"post",
+		formObj,
+		function (cnt) {
+			if(cnt>0){
+				location.href='/cookingRecipe.do';
+			}else if(cnt== -11){
+				alert("세션이 없습니다.");
+				location.href="/login.do";
+			}else{
+				alert("실패");
+			}
+		}
+	);
+}
 </script>
 </head>
 <body>
-
+<div class="header">
+	<span class="headerText">임시글</span>
+</div>
+<c:forEach var="data" items="${requestScope.tempRecipe}">
+	<div class="tempRecipeDiv">
+		<span class="title" onclick="load('${data.R_CODE}')">${data.TITLE}</span>
+		<img class="deleteBtn" src="/sys_img/쓰레기통.png" onclick="deleteRecipe('${data.R_CODE}')">
+	</div>
+</c:forEach>
+<form name="tempForm">
+	<input type="hidden" name="r_code">
+</form>
 </body>
 </html>

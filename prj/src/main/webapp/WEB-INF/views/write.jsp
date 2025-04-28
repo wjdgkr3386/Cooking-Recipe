@@ -212,6 +212,22 @@
 		    	header.css({"display":"none"});
 		    }
 		});
+		
+		window.addEventListener('pageshow', function(event) {
+			const title = window.sessionStorage.getItem("title");
+			const r_code = window.sessionStorage.getItem("r_code");
+			const content = window.sessionStorage.getItem("content");
+		    if (title) {
+		        $("[name='title']").val(title);
+		    }
+		    if (r_code) {
+		        $("[name='r_code']").val(r_code);
+		    }
+		    if (content) {
+		        $(".editor").html(content);
+		    }
+		    window.sessionStorage.clear();
+		});
     }//init 종료ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
 	//커서 마지막 위치 추적
@@ -337,6 +353,16 @@
    			}
     	);
     }
+    
+    function goSaved(){
+    	const content = $(".editor").html();
+    	const title = $("[name='title']").val();
+    	const r_code = $("[name='r_code']").val();
+    	window.sessionStorage.setItem("content", content);
+    	window.sessionStorage.setItem("title", title);
+    	window.sessionStorage.setItem("r_code", r_code);
+    	location.href="/write/saved.do";
+    }
 </script>
 </head>
 <body>
@@ -346,7 +372,7 @@
 			<img src="/sys_img/x.png" style="height:20px; height:20px; padding:20px; cursor:pointer;" onclick="location.href='/cookingRecipe.do'">
 		</span>
 		<span>
-			<input class="save" type="button" value="임시" onclick="location.href='/write/saved.do'">
+			<input class="save" type="button" value="임시" onclick="goSaved()">
 			<input class="save" type="button" value="임시등록" onclick="TemporarySave()">
 			<input class="save save_btn" type="button" value="등록" onclick="uploadContent()">
 		</span>

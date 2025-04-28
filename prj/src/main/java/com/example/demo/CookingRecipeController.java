@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,16 +33,6 @@ public class CookingRecipeController {
 		mav.addObject("recipeListSize", recipeList.size());
 		mav.addObject("mid", mid);
 		mav.setViewName("main.jsp");
-		return mav;
-	}
-	
-	@RequestMapping(value="/test.do")
-	public ModelAndView test(
-			
-	) {
-		ModelAndView mav = new ModelAndView();
-		
-		mav.setViewName("test.jsp");
 		return mav;
 	}
 	
@@ -98,9 +89,39 @@ public class CookingRecipeController {
 	
 	@RequestMapping(value="/write/saved.do")
 	public ModelAndView saved(
-	) {
+		HttpSession session
+	){
 		ModelAndView mav = new ModelAndView();
+		String mid = (String) session.getAttribute("mid");
+	    if (mid == null) {
+	        mav.setViewName("redirect:/login.do");
+	        return mav;
+	    }
+		
+	    List<Map<String,Object>> tempRecipe = cookingRecipeDAO.getTempRecipe(mid);
+	    
+	    mav.addObject("tempRecipe", tempRecipe);
 		mav.setViewName("saved.jsp");
 		return mav;
+	}
+	
+	@RequestMapping(value="/tempDeleteProc.do")
+	public int tempDeleteProc(
+		CookingRecipeDTO cookingRecipeDTO,
+		HttpSession session
+	) {
+		String mid = (String) session.getAttribute("mid");
+	    if (mid == null) {
+	        return -11;
+	    }
+	    
+	    int cnt=0;
+		try {
+			cnt=cookingRecipeService.deleteTemp(cookingRecipeDTO);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return cnt;
 	}
 }

@@ -35,12 +35,16 @@
 				r.title as "TITLE",
 				r.uuid as "UUID",
 				r.recommend as "RECOMMEND",
-				rc.content as "CONTENT"
+				rc.content as "CONTENT",
+				ri.img as "FOODIMG"
 			from
 				recipe r,
-				recipe_content rc
+				recipe_content rc,
+				recipe_img ri
 			where
 				r.r_code = rc.r_code
+				and
+				r.r_code = ri.r_code
 
     <![CDATA[
         ) zxcvb) where  RNUM  >= 1  and RNUM <= 30
@@ -104,5 +108,23 @@
 		)
 	</insert>
 	
+	<select id="getTempRecipe" parameterType="String" resultType="java.util.HashMap">
+			select
+				r.r_code as "R_CODE",
+				r.title as "TITLE",
+				r.uuid as "UUID",
+				rc.content as "CONTENT",
+				to_char(ri.img) as "FOODIMG"
+			from
+				temp_recipe r,
+				temp_recipe_content rc,
+				temp_recipe_img ri
+			where
+				r.r_code=rc.r_code
+				and
+				r.r_code=ri.r_code
+				and
+				r.uuid=(select uuid from user_info where mid=#{mid})
+	</select>
 	
 </mapper>

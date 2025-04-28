@@ -13,7 +13,7 @@ public interface CookingRecipeDAO {
 	int insertImg(CookingRecipeDTO cookingRecipeDTO);
 
 	List<Map<String,Object>> getRecipe();
-	
+	List<Map<String,Object>> getTempRecipe(String mid);
 
 	int deleteTemp_recipe(CookingRecipeDTO cookingRecipeDTO);
 	int deleteTemp_recipe_content(CookingRecipeDTO cookingRecipeDTO);
@@ -22,4 +22,5 @@ public interface CookingRecipeDAO {
 	int insertTemp_recipe(CookingRecipeDTO cookingRecipeDTO);
 	int insertTemp_recipe_content(CookingRecipeDTO cookingRecipeDTO);
 	int insertTemp_recipe_img(CookingRecipeDTO cookingRecipeDTO);
+	
 }
