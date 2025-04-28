@@ -1,4 +1,9 @@
 DROP TABLE recipe_content CASCADE CONSTRAINTS;
 DROP TABLE recipe_img CASCADE CONSTRAINTS;
 DROP TABLE recipe CASCADE CONSTRAINTS;
+
+drop table temp_recipe_img;
+drop table temp_recipe_content;
+drop table temp_recipe;
+
 DROP TABLE user_info CASCADE CONSTRAINTS;
