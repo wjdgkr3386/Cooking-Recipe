@@ -50,4 +50,3 @@ create table temp_recipe_img(
 
 
 
-

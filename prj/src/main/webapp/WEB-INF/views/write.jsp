@@ -118,6 +118,7 @@
 	    top: 0; /* 화면 최상단 위치 */
 	    left: 0;
 	    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
+	    background-color: white;
     }
 </style>
 <script>
@@ -194,7 +195,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     // e.target.result는 읽어들인 파일 데이터를 포함합니다. 일종의 경로이다.
-                    $('.upload-box').html('<img src="' + e.target.result + '" alt="Profile Picture">');
+                    $('.upload-box').html('<img src="' + e.target.result + '" alt="Profile Picture" style="width:100%; height:100%; object-fit:fill; border-radius:10px;">');
                 };
                 reader.readAsDataURL(file); // 파일을 Data URL 형식으로 읽습니다.
             }else{
@@ -226,7 +227,17 @@
 		    if (content) {
 		        $(".editor").html(content);
 		    }
-		    window.sessionStorage.clear();
+		    window.sessionStorage.removeItem("title");
+		    window.sessionStorage.removeItem("r_code");
+		    window.sessionStorage.removeItem("content");
+		});
+		
+		window.addEventListener("load", function () {
+		    const [navigation] = performance.getEntriesByType("navigation");
+		    if (navigation && navigation.type === "reload") {
+		        $(".title").val('');
+		        $(".editor").html('');
+		    }
 		});
     }//init 종료ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
@@ -291,6 +302,7 @@
     function uploadContent(){
     	const content = $(".editor").html();
     	const title = $("[name='title']").val().trim();
+    	const foodImg = $("input[name='foodImg']");
     	
     	if(title===""){
     		alert("제목을 입력해주세요.");
@@ -298,7 +310,23 @@
     	}else if(title.length>25){
     		alert("제목은 25글자 이하로 써주세요.");
     	}
+    	if(content.trim()===""){
+    		alert("내용을 입력해주세요.");
+    		return;
+    	}
+    	if(foodImg.val() === ""){
+    		alert("완성된 음식 사진을 올려주세요.");
+    		return;
+    	}
     	
+    	
+        const editorContent = $('.editor').html();
+        const editorSize = new Blob([editorContent]).size;
+        if (editorSize > 1024 *100) {
+            alert("게시글 본문 용량은 100KB까지 첨부할 수 있습니다.");
+            return;
+        }
+        
     	$("[name='content']").val(content);
     	$("[name='r_code']").val(rCode(17));
     	
@@ -379,7 +407,7 @@
 	</div>
 	<hr>
 	<div style="width:100%;">
-		<input type="text" name="title" class="title" placeholder="제목">
+		<input type="text" name="title" class="title" placeholder="제목" value="${requestScope.title}">
 	</div>
     <div class="toolbar">
     	<img class="tool image" src="/sys_img/이미지.png" onclick="$('#fileInput').click();">
@@ -452,7 +480,7 @@
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 	<!-- 편집기 -->
 	<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
-    <div class="editor" contenteditable="true" spellcheck="false"></div>
+    <div class="editor" contenteditable="true" spellcheck="false">${requestScope.content}</div>
 
 
 

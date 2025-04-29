@@ -114,16 +114,12 @@
 				r.title as "TITLE",
 				r.uuid as "UUID",
 				rc.content as "CONTENT",
-				to_char(ri.img) as "FOODIMG"
+				ri.img as "FOODIMG"
 			from
-				temp_recipe r,
-				temp_recipe_content rc,
-				temp_recipe_img ri
+				temp_recipe r
+				left join temp_recipe_content rc on r.r_code=rc.r_code
+				left join temp_recipe_img ri on r.r_code=ri.r_code
 			where
-				r.r_code=rc.r_code
-				and
-				r.r_code=ri.r_code
-				and
 				r.uuid=(select uuid from user_info where mid=#{mid})
 	</select>
 	

@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.io.Reader;
+import java.io.StringWriter;
+import java.sql.Clob;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -38,7 +41,6 @@ public class Util {
 
 	public static int convertImgToBase64(CookingRecipeDTO cookingRecipeDTO) {
 		MultipartFile foodImg = cookingRecipeDTO.getFoodImg();
-		String foodImgName = cookingRecipeDTO.getFoodImgName();
 		int cnt=1;
 		if (foodImg != null && !foodImg.isEmpty()) {
 			try {
@@ -52,4 +54,17 @@ public class Util {
 		}
 		return cnt;
 	}
+	
+    // CLOB에서 String으로 변환하는 메소드
+    public static String convertClobToString(Clob clob) throws Exception {
+        if (clob == null) return null;
+        Reader reader = clob.getCharacterStream();
+        StringWriter writer = new StringWriter();
+        char[] buffer = new char[1024];
+        int length;
+        while ((length = reader.read(buffer)) != -1) {
+            writer.write(buffer, 0, length);
+        }
+        return writer.toString();
+    }
 }

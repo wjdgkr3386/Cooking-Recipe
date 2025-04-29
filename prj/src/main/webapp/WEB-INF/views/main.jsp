@@ -7,9 +7,6 @@
 <link rel="icon" href="/sys_img/수저.png">
 <title>쿠킹레시피</title>
 <style>
-	div{
-		border: 1px solid black;
-	}
 	label{
 		display: block;
 		font-size: 19px;
@@ -21,11 +18,13 @@
 		box-sizing: border-box;
 		position: absolute;
 		display: inline-block;
-		width: 1600px;
+		width: 1640px;
 		height: 100%;
 		left: 0;
 		overflow-y: auto;
 		overflow-x: hidden;
+		border: 1px solid lightpink;
+		box-shadow: -1px 5px 1px rgba(0, 0, 0, 0.1);
 	}
 	.ingredient_container{
 		box-sizing: border-box;
@@ -46,7 +45,8 @@
 		overflow-x: hidden;
 		box-sizing: border-box;
 		height: 740px;
-		border: 1px solid black;
+		border: 1px solid lightpink;
+		box-shadow: 0px 5px 1px rgba(0, 0, 0, 0.1);
 	}
 	.search_button{
 		width:100%;
@@ -62,7 +62,7 @@
 		box-sizing: border-box;
 		width: 100%;
 		height: 100%;
-		border-spacing: 30 30; /* 가로간격 세로간격 */
+		border-spacing: 40 40; /* 가로간격 세로간격 */
 		padding: 0 10px;
 		overflow-y: auto;
 		overflow-x: hidden;
@@ -98,6 +98,8 @@
 		justify-content: center;
 		align-items: center;
 		margin: 15 auto;
+		border: 1px solid lightpink;
+		box-shadow: -1px 5px 1px rgba(0, 0, 0, 0.1);
 	}
 	.item{
 		cursor: pointer;
@@ -105,6 +107,7 @@
 	}
 </style>
 <script>
+
 	function logout(){
 		var formObj = $("[name='logoutForm']");
 		ajax(
@@ -166,8 +169,8 @@
 						    	<tr>
 									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${(stat.index*3)+2}">
 										<td class="card">
-											<img class="image" src="/sys_img/x.png" alt="이미지">
-											<div class="food_name">요리 이름</div>
+											<img class="image" src='data:image/jpeg;base64, ${data.FOODIMG}' alt="이미지">
+											<div class="food_name">${data.TITLE}</div>
 										</td>
 									</c:forEach>
 								</tr>
@@ -176,8 +179,8 @@
 								<tr>
 									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${(stat.index*3)+((requestScope.recipeListSize-1)%3)}">
 										<td class="card">
-											<img class="image" src="/sys_img/x.png" alt="이미지">
-											<div class="food_name">요리 이름</div>
+											<img class="image" src='data:image/jpeg;base64, ${data.FOODIMG}' alt="이미지">
+											<div class="food_name">${data.TITLE}</div>
 										</td>
 									</c:forEach>
 								</tr>

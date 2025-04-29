@@ -1,6 +1,6 @@
 package com.example.demo;
 
-import java.util.HashMap;
+import java.sql.Clob;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,62 +19,97 @@ public class CookingRecipeController {
 	CookingRecipeService cookingRecipeService;
 	@Autowired
 	CookingRecipeDAO cookingRecipeDAO;
-	
-	
-	@RequestMapping(value="/cookingRecipe.do")
+
+	@RequestMapping(value = "/cookingRecipe.do")
 	public ModelAndView cookingRecipe(
 		HttpSession session
 	) {
 		String mid = (String) session.getAttribute("mid");
 		ModelAndView mav = new ModelAndView();
-		
-		List<Map<String,Object>> recipeList = cookingRecipeDAO.getRecipe();
 
+		List<Map<String, Object>> recipeList = cookingRecipeDAO.getRecipe();
+
+		for(Map<String, Object> map : recipeList) {
+			Clob clobImg = (Clob) map.get("FOODIMG");
+			String foodImg="";
+			
+			try {
+				if(clobImg!=null) {
+					foodImg = Util.convertClobToString(clobImg);
+					if(foodImg==null) {
+						foodImg="";
+					}
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+
+			map.put("FOODIMG", foodImg);
+		}
+		
 		mav.addObject("recipeList", recipeList);
 		mav.addObject("recipeListSize", recipeList.size());
 		mav.addObject("mid", mid);
 		mav.setViewName("main.jsp");
 		return mav;
 	}
-	
-	@RequestMapping(value="/write.do")
+
+	@RequestMapping(value = "/write.do")
 	public ModelAndView write(
 	) {
 		ModelAndView mav = new ModelAndView();
-		
 		mav.setViewName("write.jsp");
 		return mav;
 	}
-	
-	@RequestMapping(value="/writeInsertProc.do")
+
+	@RequestMapping(value = "/loadWrite.do")
+	public ModelAndView updateWrite(
+		@RequestParam(value = "content", required = false) String content,
+		@RequestParam(value = "foodImgBase64", required = false) String foodImgBase64,
+		@RequestParam(value = "r_code", required = false) String r_code,
+		@RequestParam(value = "title", required = false) String title,
+		@RequestParam(value = "uuid", required = false) String uuid
+	) {
+		ModelAndView mav = new ModelAndView();
+
+		mav.addObject("content", content);
+		mav.addObject("foodImgBase64", foodImgBase64);
+		mav.addObject("r_code", r_code);
+		mav.addObject("title", title);
+		mav.addObject("uuid", uuid);
+		mav.setViewName("write.jsp");
+		return mav;
+	}
+
+	@RequestMapping(value = "/writeInsertProc.do")
 	public int writeInsertProc(
 		CookingRecipeDTO cookingRecipeDTO,
 		HttpSession session
 	) {
 		String mid = (String) session.getAttribute("mid");
-		if(mid==null) {
+		if (mid == null) {
 			return -11;
 		}
 		cookingRecipeDTO.setMid(mid);
-		
-		int cnt=0;
+
+		int cnt = 0;
 		try {
 			cnt = cookingRecipeService.insertRecipe(cookingRecipeDTO);
-		}catch(RuntimeException r) {
+		} catch (RuntimeException r) {
 			cnt = Integer.parseInt(r.getMessage());
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return cnt;
 	}
-	
-	@RequestMapping(value="/writeTemporarySaveProc.do")
+
+	@RequestMapping(value = "/writeTemporarySaveProc.do")
 	public int writeTemporarySaveProc(
 		CookingRecipeDTO cookingRecipeDTO,
 		HttpSession session
 	) {
 		String mid = (String) session.getAttribute("mid");
-		if(mid==null) {
+		if (mid == null) {
 			return -11;
 		}
 		cookingRecipeDTO.setMid(mid);
@@ -81,47 +117,77 @@ public class CookingRecipeController {
 		int cnt = 0;
 		try {
 			cnt = cookingRecipeService.tempSave(cookingRecipeDTO);
-		}catch(Exception e) {
+		} catch (Exception e) {
 			System.out.println(e);
 		}
 		return cnt;
 	}
-	
-	@RequestMapping(value="/write/saved.do")
+
+	@RequestMapping(value = "/write/saved.do")
 	public ModelAndView saved(
-		HttpSession session
-	){
+			HttpSession session,
+			CookingRecipeDTO cookingRecipeDTO
+	) {
 		ModelAndView mav = new ModelAndView();
 		String mid = (String) session.getAttribute("mid");
-	    if (mid == null) {
-	        mav.setViewName("redirect:/login.do");
-	        return mav;
-	    }
-		
-	    List<Map<String,Object>> tempRecipe = cookingRecipeDAO.getTempRecipe(mid);
-	    
-	    mav.addObject("tempRecipe", tempRecipe);
+		if (mid == null) {
+			mav.setViewName("redirect:/login.do");
+			return mav;
+		}
+
+		List<Map<String, Object>> tempRecipe = cookingRecipeDAO.getTempRecipe(mid);
+		for(Map<String,Object> map: tempRecipe) {
+			
+			Clob clobContent = (Clob) map.get("CONTENT");
+			Clob clobImg = (Clob) map.get("FOODIMG");
+			
+			String content="";
+			String foodImg="";
+			
+			try {
+				if(clobContent!=null) {
+					content = Util.convertClobToString(clobContent);
+					if(content==null) {
+						content="";
+					}
+				}
+
+				if(clobImg!=null) {
+					foodImg = Util.convertClobToString(clobImg);
+					if(foodImg==null) {
+						foodImg="";
+					}
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+
+			map.put("CONTENT", content);
+			map.put("FOODIMG", foodImg);
+		}
+
+		mav.addObject("tempRecipe", tempRecipe);
 		mav.setViewName("saved.jsp");
 		return mav;
 	}
-	
-	@RequestMapping(value="/tempDeleteProc.do")
+
+	@RequestMapping(value = "/tempDeleteProc.do")
 	public int tempDeleteProc(
 		CookingRecipeDTO cookingRecipeDTO,
 		HttpSession session
 	) {
 		String mid = (String) session.getAttribute("mid");
-	    if (mid == null) {
-	        return -11;
-	    }
-	    
-	    int cnt=0;
+		if (mid == null) {
+			return -11;
+		}
+
+		int cnt = 0;
 		try {
-			cnt=cookingRecipeService.deleteTemp(cookingRecipeDTO);
-		}catch(Exception e) {
+			cnt = cookingRecipeService.deleteTemp(cookingRecipeDTO);
+		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return cnt;
 	}
 }
