@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +29,7 @@ public class CookingRecipeController {
 		String mid = (String) session.getAttribute("mid");
 		ModelAndView mav = new ModelAndView();
 
-		List<Map<String, Object>> recipeList = cookingRecipeDAO.getRecipe();
+		List<Map<String, Object>> recipeList = cookingRecipeDAO.getRecipeAll();
 
 		for(Map<String, Object> map : recipeList) {
 			Clob clobImg = (Clob) map.get("FOODIMG");
@@ -189,5 +191,24 @@ public class CookingRecipeController {
 		}
 
 		return cnt;
+	}
+	
+	@RequestMapping("/post/{r_code}")
+	public ModelAndView post(
+			@PathVariable("r_code") String r_code
+	) {
+		ModelAndView mav = new ModelAndView();
+		Map<String,Object> postMap = cookingRecipeDAO.getPost(r_code);
+		try {
+			String content = Util.convertClobToString((Clob) postMap.get("CONTENT"));
+			String foodImg = Util.convertClobToString((Clob) postMap.get("FOODIMG"));
+			postMap.put("CONTENT", content);
+			postMap.put("FOODIMG", foodImg);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		mav.addObject("postMap", postMap);
+		mav.setViewName("post.jsp");
+		return mav;
 	}
 }

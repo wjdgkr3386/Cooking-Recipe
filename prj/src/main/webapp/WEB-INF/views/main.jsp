@@ -87,8 +87,9 @@
 	.food_name{
 		height:10%;
 		box-sizing: border-box;
-		font-size: 20px;
+		font-size: 25px;
 		text-align: center;
+		padding: 5px;
 	}
 	.menubar{
 		width: 2000px;
@@ -129,6 +130,23 @@
 			location.href="/write.do";
 		}
 	}
+	
+    function goPost(r_code){
+        // 새로운 form 엘리먼트 생성
+        var form = document.createElement("form");
+        form.method = "POST";
+        form.action = "/post/"+r_code;
+
+        // 새로운 input 엘리먼트 생성
+        var input = document.createElement("input");
+        input.type = "hidden";
+        input.name = "r_code";
+        input.value = r_code;
+
+        // form에 input 추가하고 바로 body에 추가하여 submit
+        form.appendChild(input);
+        document.body.appendChild(form).submit();
+    }
 </script>
 </head>
 <body>
@@ -169,7 +187,7 @@
 						    	<tr>
 									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${(stat.index*3)+2}">
 										<td class="card">
-											<img class="image" src='data:image/jpeg;base64, ${data.FOODIMG}' alt="이미지">
+											<img class="image" src='data:image/jpeg;base64, ${data.FOODIMG}' alt="이미지" onclick="goPost('${data.R_CODE}')">
 											<div class="food_name">${data.TITLE}</div>
 										</td>
 									</c:forEach>
@@ -179,7 +197,7 @@
 								<tr>
 									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${(stat.index*3)+((requestScope.recipeListSize-1)%3)}">
 										<td class="card">
-											<img class="image" src='data:image/jpeg;base64, ${data.FOODIMG}' alt="이미지">
+											<img class="image" src='data:image/jpeg;base64, ${data.FOODIMG}' alt="이미지" onclick="goPost('${data.R_CODE}')">
 											<div class="food_name">${data.TITLE}</div>
 										</td>
 									</c:forEach>
