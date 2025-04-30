@@ -305,25 +305,6 @@
 		}
 	}
 	
-	function inputDot(){
-		const selection = window.getSelection();
-		if (selection.rangeCount > 0) {
-			const range = selection.getRangeAt(0);
-			const startContainer = range.startContainer;  // 커서가 있는 위치의 노드
-            if (editor.contains(startContainer)) {
-            	savedRange = range;
-            }
-			
-            // · 문자 생성
-            const dotNode = document.createTextNode("‧");
-            savedRange.insertNode(dotNode);
-            savedRange.setStartAfter(dotNode);
-            savedRange.setEndAfter(dotNode);
-            selection.removeAllRanges();
-            selection.addRange(range);
-		}
-	}
-	
     function execCommand(command, value = '') {
         const selection = window.getSelection();
         if (selection.rangeCount > 0) {
@@ -488,7 +469,7 @@
         <input type="button" class="tool" value="밑줄" onclick="execCommand('underline')">
         <input type="button" class="tool" value="취소선" onclick="execCommand('strikeThrough')">
         <img class="tool image" src="/sys_img/수평선.png" onclick="inputHr()">
-        <input type="button" class="tool" value="●" onclick="inputDot()">
+        <input type="button" class="tool" value="●" onclick="execCommand('insertUnorderedList')">
 
         <select class="tool" onchange="setFontSize(this.value)">
             <option value="1">10</option>
