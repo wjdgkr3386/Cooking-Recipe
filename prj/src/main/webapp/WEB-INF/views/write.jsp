@@ -102,7 +102,7 @@
     	display: flex;
 		justify-content: center;
 		align-items: center;
-		margin: 100 auto;
+		margin: 30 auto;
 		
     }
     
@@ -119,6 +119,40 @@
 	    left: 0;
 	    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
 	    background-color: white;
+    }
+    
+    .bottomSavebar{
+    	height: 60px;
+    	width: 100%;
+    	display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+    }
+    
+    .bottomCancel{
+    	height: 60px;
+    	width: 48%;
+    	display: flex;
+		justify-content: center;
+		align-items: center;
+    	background-color: #FFF5F8;
+    	color: black;
+    	font-weight: 500;
+    	border-radius: 10px;
+    	cursor: pointer;
+    }
+    .bottomSave{
+    	height: 60px;
+    	width: 48%;
+    	display: flex;
+		justify-content: center;
+		align-items: center;
+    	background-color: #EBFAF0;
+    	color: green;
+    	font-weight: 500;
+    	border-radius: 10px;
+    	cursor: pointer;
     }
 </style>
 <script>
@@ -251,7 +285,6 @@
     
 	function inputHr(){
 		const selection = window.getSelection();
-		
 		if (selection.rangeCount > 0) {
 			const range = selection.getRangeAt(0);
             const startContainer = range.startContainer;  // 커서가 있는 위치의 노드
@@ -269,6 +302,25 @@
             savedRange.setEndAfter(hr);
             selection.removeAllRanges();
             selection.addRange(savedRange);
+		}
+	}
+	
+	function inputDot(){
+		const selection = window.getSelection();
+		if (selection.rangeCount > 0) {
+			const range = selection.getRangeAt(0);
+			const startContainer = range.startContainer;  // 커서가 있는 위치의 노드
+            if (editor.contains(startContainer)) {
+            	savedRange = range;
+            }
+			
+            // · 문자 생성
+            const dotNode = document.createTextNode("‧");
+            savedRange.insertNode(dotNode);
+            savedRange.setStartAfter(dotNode);
+            savedRange.setEndAfter(dotNode);
+            selection.removeAllRanges();
+            selection.addRange(range);
 		}
 	}
 	
@@ -316,6 +368,7 @@
     	}
     	if(foodImg.val() === ""){
     		alert("완성된 음식 사진을 올려주세요.");
+    		$('.upload-box')[0].scrollIntoView({ behavior: 'smooth' });
     		return;
     	}
     	
@@ -391,13 +444,19 @@
     	window.sessionStorage.setItem("r_code", r_code);
     	location.href="/write/saved.do";
     }
+    
+    function cancel(){
+    	if(confirm( "글쓰기를 취소하시겠습니까?" )){
+			location.href='/cookingRecipe.do';
+    	}
+    }
 </script>
 </head>
 <body>
 <form name="contentForm">
 	<div class="savebar">
 		<span>
-			<img src="/sys_img/x.png" style="height:20px; height:20px; padding:20px; cursor:pointer;" onclick="location.href='/cookingRecipe.do'">
+			<img src="/sys_img/x.png" style="height:20px; height:20px; padding:20px; cursor:pointer;" onclick="cancel()">
 		</span>
 		<span>
 			<input class="save" type="button" value="임시" onclick="goSaved()">
@@ -429,6 +488,7 @@
         <input type="button" class="tool" value="밑줄" onclick="execCommand('underline')">
         <input type="button" class="tool" value="취소선" onclick="execCommand('strikeThrough')">
         <img class="tool image" src="/sys_img/수평선.png" onclick="inputHr()">
+        <input type="button" class="tool" value="●" onclick="inputDot()">
 
         <select class="tool" onchange="setFontSize(this.value)">
             <option value="1">10</option>
@@ -488,6 +548,15 @@
     	완성된 음식 사진을 올려주세요.
     </div>
     <input type="file" id="foodImg" name="foodImg" style="display:none;">
+    
+    <div class="bottomSavebar">
+    	<span class="bottomCancel" onclick="cancel()">
+    		취소
+    	</span>
+    	<span class="bottomSave" onclick="uploadContent()">
+    		저장
+    	</span>
+    </div>
     
 	<input type="hidden" name="content">
 	<input type="hidden" name="r_code">

@@ -18,12 +18,28 @@
 		height: 60px;
 		margin: 0;
 		display: flex;
+		align-items: center;
+		position: relative;
+	}
+	.headerBack{
+		left: 1%;
+		width:40px;
+		height: 70%;
+		border: 1px solid black;
+		font-size: 30px;
+		font-weight: 700;
+		position: absolute;
+		display: flex;
 		justify-content: center;
 		align-items: center;
+		cursor: pointer;
 	}
 	.headerText {
 		font-size: 20px;
 		font-weight: bold;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
 	}
 	.tempRecipeDiv{
 		display: flex;
@@ -95,6 +111,7 @@ function deleteRecipe(r_code){
 </head>
 <body>
 <div class="header">
+	<span class="headerBack" onclick="history.back();">></span>
 	<span class="headerText">임시글</span>
 </div>
 <div class="body-div">
