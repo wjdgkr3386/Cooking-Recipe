@@ -61,6 +61,18 @@
 		)
 	</insert>
 	
+	<delete id="deleteRecipe" parameterType="com.example.demo.CookingRecipeDTO">
+		delete from recipe where r_code=#{r_code}
+	</delete>
+	
+	<delete id="deleteRecipe_content" parameterType="com.example.demo.CookingRecipeDTO">
+		delete from recipe_img where r_code=#{r_code}
+	</delete>
+	
+	<delete id="deleteRecipe_img" parameterType="com.example.demo.CookingRecipeDTO">
+		delete from recipe_content where r_code=#{r_code}
+	</delete>
+	
 	<delete id="deleteTemp_recipe" parameterType="com.example.demo.CookingRecipeDTO">
 		delete from temp_recipe where r_code=#{r_code}
 	</delete>
@@ -129,15 +141,19 @@
 				r.title as "TITLE",
 				r.uuid as "UUID",
 				rc.content as "CONTENT",
-				ri.img as "FOODIMG"
+				ri.img as "FOODIMG",
+				u.mid as "MID"
 			from
 				recipe r,
 				recipe_content rc,
-				recipe_img ri
+				recipe_img ri,
+				user_info u
 			where
 				r.r_code=rc.r_code
 				and
 				r.r_code=ri.r_code
+				and
+				r.uuid=u.uuid
 				and
 				r.r_code=#{r_code}
 	</select>

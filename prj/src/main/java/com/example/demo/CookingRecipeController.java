@@ -195,9 +195,11 @@ public class CookingRecipeController {
 	
 	@RequestMapping("/post/{r_code}")
 	public ModelAndView post(
-			@PathVariable("r_code") String r_code
+			@PathVariable("r_code") String r_code,
+			HttpSession session
 	) {
 		ModelAndView mav = new ModelAndView();
+		String mid = (String) session.getAttribute("mid");
 		Map<String,Object> postMap = cookingRecipeDAO.getPost(r_code);
 		try {
 			String content = Util.convertClobToString((Clob) postMap.get("CONTENT"));
@@ -207,8 +209,51 @@ public class CookingRecipeController {
 		}catch(Exception e) {
 			System.out.println(e);
 		}
+		mav.addObject("mid", mid);
 		mav.addObject("postMap", postMap);
 		mav.setViewName("post.jsp");
 		return mav;
+	}
+	
+	@RequestMapping("/post/{r_code}/modify")
+	public ModelAndView modify(
+			@PathVariable("r_code") String r_code,
+			HttpSession session
+	) {
+		ModelAndView mav = new ModelAndView();
+		String mid = (String) session.getAttribute("mid");
+		Map<String,Object> postMap = cookingRecipeDAO.getPost(r_code);
+		try {
+			String content = Util.convertClobToString((Clob) postMap.get("CONTENT"));
+			postMap.put("CONTENT", content);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		mav.addObject("mid", mid);
+		mav.addObject("postMap", postMap);
+		mav.setViewName("modify.jsp");
+		return mav;
+	}
+
+	@RequestMapping(value = "/deletePostProc.do")
+	public int deletePostProc(
+		CookingRecipeDTO cookingRecipeDTO,
+		HttpSession session
+	) {
+		String mid = (String) session.getAttribute("mid");
+		if (mid == null) {
+			return -11;
+		}
+
+		int cnt = 0;
+		try {
+			cnt = cookingRecipeService.deletePost(cookingRecipeDTO);
+		} catch (RuntimeException r) {
+			cnt = Integer.parseInt(r.getMessage());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return cnt;
 	}
 }

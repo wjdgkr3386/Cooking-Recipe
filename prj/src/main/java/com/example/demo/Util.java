@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.io.FileOutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.sql.Clob;
@@ -54,6 +55,18 @@ public class Util {
 		}
 		return cnt;
 	}
+	
+    public static void saveBase64Image(String base64Data, String outputPath) throws Exception {
+        // "data:image/png;base64,...” 같은 접두사 제거
+        String[] parts = base64Data.split(",");
+        String imageString = parts.length > 1 ? parts[1] : parts[0];
+
+        byte[] imageBytes = Base64.getDecoder().decode(imageString);
+        try (FileOutputStream fos = new FileOutputStream(outputPath)) {
+            fos.write(imageBytes);
+        }
+    }
+    
 	
     // CLOB에서 String으로 변환하는 메소드
     public static String convertClobToString(Clob clob) throws Exception {

@@ -8,5 +8,10 @@ public interface CookingRecipeService {
 	
 	int tempSave(CookingRecipeDTO cookingRecipeDTO) throws Exception;
 	
-	int deleteTemp(CookingRecipeDTO cookingRecipeDTO) throws Exception;	
+	int deleteTemp(CookingRecipeDTO cookingRecipeDTO) throws Exception;
+	
+	int deletePost(CookingRecipeDTO cookingRecipeDTO) throws Exception;
+	
+	
+	
 }

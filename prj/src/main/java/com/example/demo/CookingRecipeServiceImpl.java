@@ -14,7 +14,14 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 	@Autowired
 	CookingRecipeDAO cookingRecipeDAO;
 	
-	public int insertRecipe(CookingRecipeDTO cookingRecipeDTO) {
+	public int insertRecipe(CookingRecipeDTO cookingRecipeDTO) {		
+		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
+		cookingRecipeDAO.deleteTemp_recipe_img(cookingRecipeDTO);
+		cookingRecipeDAO.deleteTemp_recipe(cookingRecipeDTO);
+		cookingRecipeDAO.deleteRecipe_content(cookingRecipeDTO);
+		cookingRecipeDAO.deleteRecipe_img(cookingRecipeDTO);
+		cookingRecipeDAO.deleteRecipe(cookingRecipeDTO);
+		
 		int cnt=0;
 		if(cookingRecipeDAO.insertRecipe(cookingRecipeDTO)>0) {
 			if(cookingRecipeDAO.insertRecipe_content(cookingRecipeDTO)>0) {
@@ -64,6 +71,17 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		cookingRecipeDAO.deleteTemp_recipe_img(cookingRecipeDTO);
 		cnt = cookingRecipeDAO.deleteTemp_recipe(cookingRecipeDTO);
 		
+		return cnt;
+	}
+	
+	public int deletePost(CookingRecipeDTO cookingRecipeDTO) {
+		int cnt=0;
+		if(cookingRecipeDAO.deleteRecipe_content(cookingRecipeDTO)>0) {
+			if(cookingRecipeDAO.deleteRecipe_img(cookingRecipeDTO)>0){
+				cnt=cookingRecipeDAO.deleteRecipe(cookingRecipeDTO);
+			}
+		}
+		if(cnt==0) { throw new RuntimeException("0"); }
 		return cnt;
 	}
 }

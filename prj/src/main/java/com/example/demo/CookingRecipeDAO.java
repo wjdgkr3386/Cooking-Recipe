@@ -12,6 +12,11 @@ public interface CookingRecipeDAO {
 	int insertRecipe_content(CookingRecipeDTO cookingRecipeDTO);
 	int insertImg(CookingRecipeDTO cookingRecipeDTO);
 
+
+	int deleteRecipe_content(CookingRecipeDTO cookingRecipeDTO);
+	int deleteRecipe_img(CookingRecipeDTO cookingRecipeDTO);
+	int deleteRecipe(CookingRecipeDTO cookingRecipeDTO);
+	
 	List<Map<String,Object>> getRecipeAll();
 	List<Map<String,Object>> getTempRecipe(String mid);
 	Map<String,Object> getPost(String r_code);
