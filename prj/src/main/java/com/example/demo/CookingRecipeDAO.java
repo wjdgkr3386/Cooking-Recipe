@@ -23,11 +23,9 @@ public interface CookingRecipeDAO {
 	
 	int deleteTemp_recipe(CookingRecipeDTO cookingRecipeDTO);
 	int deleteTemp_recipe_content(CookingRecipeDTO cookingRecipeDTO);
-	int deleteTemp_recipe_img(CookingRecipeDTO cookingRecipeDTO);
 	
 	int insertTemp_recipe(CookingRecipeDTO cookingRecipeDTO);
 	int insertTemp_recipe_content(CookingRecipeDTO cookingRecipeDTO);
-	int insertTemp_recipe_img(CookingRecipeDTO cookingRecipeDTO);
 	
 	
 }

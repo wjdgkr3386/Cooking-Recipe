@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class CookingRecipeDTO {
@@ -12,7 +14,7 @@ public class CookingRecipeDTO {
 	MultipartFile foodImg;
 	String foodImgName;
 	String foodImgBase64;
-	
+	List<Integer> ingredient;
 	
 	public String getTitle() {
 		return title;
@@ -61,6 +63,12 @@ public class CookingRecipeDTO {
 	}
 	public void setFoodImgBase64(String foodImgBase64) {
 		this.foodImgBase64 = foodImgBase64;
+	}
+	public List<Integer> getIngredient() {
+		return ingredient;
+	}
+	public void setIngredient(List<Integer> ingredient) {
+		this.ingredient = ingredient;
 	}
 	
 	

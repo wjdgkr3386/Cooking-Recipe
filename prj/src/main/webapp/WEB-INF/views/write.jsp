@@ -14,6 +14,21 @@
 	    overflow-x: hidden;
 	    font-family: sans-serif;
 	}
+	
+	label{
+		display: block;
+		font-size: 25px;
+		margin: 4px;
+		padding: 0 20px;
+		user-select: none;
+	}
+	
+	input[type="checkbox"] {
+		width: 20px;
+		height: 20px;
+		margin: 0 15 0 0;
+	}
+		
 	.savebar{
 		display: flex;
 		justify-content: space-between;
@@ -92,6 +107,15 @@
     	height:25px;
     	margin: 0 15px;
     }
+	
+    .upload-box_ingredient-checkbox_container{
+    	width: 100%;
+    	display: flex;
+		justify-content: center;
+		align-items: center;
+    	margin: 30 0px;
+    	gap: 60px;
+    }
     
     .upload-box{
     	border: 1px solid black;
@@ -99,12 +123,22 @@
     	width: 400px;
     	height: 400px;
     	cursor: pointer;
-    	display: flex;
+    	display: inline-flex;
 		justify-content: center;
 		align-items: center;
-		margin: 30 auto;
-		
     }
+    
+    .ingredient-checkbox{
+    	border: 1px solid black;
+    	border-radius: 10px;
+    	width: 400px;
+    	height: 400px;
+    	display: inline-block;
+		overflow-y: auto;
+		overflow-x: hidden;
+		box-sizing: border-box;
+    }
+    
     
     .toolbarHeader{
     	height: 60px;
@@ -332,7 +366,7 @@
         execCommand(alignType);
     }
     
-    function uploadContent(){
+    function uploadPost(){
     	const content = $(".editor").html();
     	const title = $("[name='title']").val().trim();
     	const foodImg = $("input[name='foodImg']");
@@ -389,7 +423,6 @@
     
     
     function TemporarySave(){
-
     	const content = $(".editor").html();
     	const title = $("[name='title']").val().trim();
 		const r_code = $("[name='r_code']");
@@ -442,7 +475,7 @@
 		<span>
 			<input class="save" type="button" value="임시" onclick="goSaved()">
 			<input class="save" type="button" value="임시등록" onclick="TemporarySave()">
-			<input class="save save_btn" type="button" value="등록" onclick="uploadContent()">
+			<input class="save save_btn" type="button" value="등록" onclick="uploadPost()">
 		</span>
 	</div>
 	<hr>
@@ -524,17 +557,79 @@
     <div class="editor" contenteditable="true" spellcheck="false">${requestScope.content}</div>
 
 
-
-    <div class="upload-box" onclick="$('#foodImg').click()">
-    	완성된 음식 사진을 올려주세요.
+	<div class="upload-box_ingredient-checkbox_container">
+	    <div class="upload-box" onclick="$('#foodImg').click()">
+	    	완성된 음식 사진을 올려주세요.
+	    </div>
+		<div class="ingredient-checkbox">
+			<label><input type="checkbox" name="ingredient" value="1">계란</label>
+			<label><input type="checkbox" name="ingredient" value="2">김치</label>
+			<label><input type="checkbox" name="ingredient" value="3">양파</label>
+			<label><input type="checkbox" name="ingredient" value="4">감자</label>
+			<label><input type="checkbox" name="ingredient" value="5">당근</label>
+			<label><input type="checkbox" name="ingredient" value="6">마늘</label>
+			<label><input type="checkbox" name="ingredient" value="7">대파</label>
+			<label><input type="checkbox" name="ingredient" value="8">두부</label>
+			<label><input type="checkbox" name="ingredient" value="9">우유</label>
+			<label><input type="checkbox" name="ingredient" value="10">밥</label>
+			<label><input type="checkbox" name="ingredient" value="11">라면</label>
+			<label><input type="checkbox" name="ingredient" value="12">국수</label>
+			<label><input type="checkbox" name="ingredient" value="13">식빵</label>
+			<label><input type="checkbox" name="ingredient" value="14">떡</label>
+			<label><input type="checkbox" name="ingredient" value="15">햄</label>
+			<label><input type="checkbox" name="ingredient" value="16">참치</label>
+			<label><input type="checkbox" name="ingredient" value="17">소세지</label>
+			<label><input type="checkbox" name="ingredient" value="18">만두</label>
+			<label><input type="checkbox" name="ingredient" value="19">버터</label>
+			<label><input type="checkbox" name="ingredient" value="20">치즈</label>
+			<label><input type="checkbox" name="ingredient" value="21">김</label>
+			<label><input type="checkbox" name="ingredient" value="22">멸치</label>
+			<label><input type="checkbox" name="ingredient" value="23">다시마</label>
+			<label><input type="checkbox" name="ingredient" value="24">고추장</label>
+			<label><input type="checkbox" name="ingredient" value="25">된장</label>
+			<label><input type="checkbox" name="ingredient" value="26">간장</label>
+			<label><input type="checkbox" name="ingredient" value="27">설탕</label>
+			<label><input type="checkbox" name="ingredient" value="28">소금</label>
+			<label><input type="checkbox" name="ingredient" value="29">후추</label>
+			<label><input type="checkbox" name="ingredient" value="30">참기름</label>
+			<label><input type="checkbox" name="ingredient" value="31">들기름</label>
+			<label><input type="checkbox" name="ingredient" value="32">식초</label>
+			<label><input type="checkbox" name="ingredient" value="33">케찹</label>
+			<label><input type="checkbox" name="ingredient" value="34">마요네즈</label>
+			<label><input type="checkbox" name="ingredient" value="35">카레가루</label>
+			<label><input type="checkbox" name="ingredient" value="36">콩나물</label>
+			<label><input type="checkbox" name="ingredient" value="37">부추</label>
+			<label><input type="checkbox" name="ingredient" value="38">호박</label>
+			<label><input type="checkbox" name="ingredient" value="39">애호박</label>
+			<label><input type="checkbox" name="ingredient" value="40">오이</label>
+			<label><input type="checkbox" name="ingredient" value="41">양배추</label>
+			<label><input type="checkbox" name="ingredient" value="42">배추</label>
+			<label><input type="checkbox" name="ingredient" value="43">고추</label>
+			<label><input type="checkbox" name="ingredient" value="44">고춧가루</label>
+			<label><input type="checkbox" name="ingredient" value="45">돼지고기</label>
+			<label><input type="checkbox" name="ingredient" value="46">소고기</label>
+			<label><input type="checkbox" name="ingredient" value="47">닭고기</label>
+			<label><input type="checkbox" name="ingredient" value="48">생선</label>
+		</div>
     </div>
     <input type="file" id="foodImg" name="foodImg" style="display:none;">
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     <div class="bottomSavebar">
     	<span class="bottomCancel" onclick="cancel()">
     		취소
     	</span>
-    	<span class="bottomSave" onclick="uploadContent()">
+    	<span class="bottomSave" onclick="uploadPost()">
     		저장
     	</span>
     </div>

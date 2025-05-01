@@ -141,10 +141,8 @@ public class CookingRecipeController {
 		for(Map<String,Object> map: tempRecipe) {
 			
 			Clob clobContent = (Clob) map.get("CONTENT");
-			Clob clobImg = (Clob) map.get("FOODIMG");
 			
 			String content="";
-			String foodImg="";
 			
 			try {
 				if(clobContent!=null) {
@@ -153,19 +151,11 @@ public class CookingRecipeController {
 						content="";
 					}
 				}
-
-				if(clobImg!=null) {
-					foodImg = Util.convertClobToString(clobImg);
-					if(foodImg==null) {
-						foodImg="";
-					}
-				}
 			}catch(Exception e) {
 				System.out.println(e);
 			}
 
 			map.put("CONTENT", content);
-			map.put("FOODIMG", foodImg);
 		}
 
 		mav.addObject("tempRecipe", tempRecipe);

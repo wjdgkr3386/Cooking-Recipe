@@ -81,10 +81,6 @@
 		delete from temp_recipe_content where r_code=#{r_code}
 	</delete>
 	
-	<delete id="deleteTemp_recipe_img" parameterType="com.example.demo.CookingRecipeDTO">
-		delete from temp_recipe_img where r_code=#{r_code}
-	</delete>
-	
 	
 	<insert id="insertTemp_recipe" parameterType="com.example.demo.CookingRecipeDTO">
 		insert into temp_recipe (
@@ -110,27 +106,15 @@
 		)
 	</insert>
 	
-	<insert id="insertTemp_recipe_img" parameterType="com.example.demo.CookingRecipeDTO">
-		insert into temp_recipe_img(
-			img,
-			r_code
-		)values(
-			#{foodImgBase64},
-			#{r_code}
-		)
-	</insert>
-	
 	<select id="getTempRecipe" parameterType="String" resultType="java.util.HashMap">
 			select
 				r.r_code as "R_CODE",
 				r.title as "TITLE",
 				r.uuid as "UUID",
-				rc.content as "CONTENT",
-				ri.img as "FOODIMG"
+				rc.content as "CONTENT"
 			from
 				temp_recipe r
 				left join temp_recipe_content rc on r.r_code=rc.r_code
-				left join temp_recipe_img ri on r.r_code=ri.r_code
 			where
 				r.uuid=(select uuid from user_info where mid=#{mid})
 	</select>

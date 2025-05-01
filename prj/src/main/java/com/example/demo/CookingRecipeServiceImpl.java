@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +14,6 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 	
 	public int insertRecipe(CookingRecipeDTO cookingRecipeDTO) {		
 		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
-		cookingRecipeDAO.deleteTemp_recipe_img(cookingRecipeDTO);
 		cookingRecipeDAO.deleteTemp_recipe(cookingRecipeDTO);
 		cookingRecipeDAO.deleteRecipe_content(cookingRecipeDTO);
 		cookingRecipeDAO.deleteRecipe_img(cookingRecipeDTO);
@@ -44,31 +41,20 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		return cnt;
 	}
 	
-	public int tempSave(CookingRecipeDTO cookingRecipeDTO) {		
+	public int tempSave(CookingRecipeDTO cookingRecipeDTO) {
 		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
-		cookingRecipeDAO.deleteTemp_recipe_img(cookingRecipeDTO);
 		cookingRecipeDAO.deleteTemp_recipe(cookingRecipeDTO);
 		
+		int cnt=0;
 		if(cookingRecipeDAO.insertTemp_recipe(cookingRecipeDTO)>0) {
-			if(cookingRecipeDAO.insertTemp_recipe_content(cookingRecipeDTO)>0) {
-				Util.file_nameInput(cookingRecipeDTO);
-				MultipartFile img = cookingRecipeDTO.getFoodImg();
-				if(img != null && !img.isEmpty()) {
-					if(Util.extensionCheck(cookingRecipeDTO.getFoodImgName())==-18) {
-						throw new RuntimeException("-18");
-					}
-					Util.convertImgToBase64(cookingRecipeDTO);
-					cookingRecipeDAO.insertTemp_recipe_img(cookingRecipeDTO);
-				}
-			}
+			cnt = cookingRecipeDAO.insertTemp_recipe_content(cookingRecipeDTO);
 		}
-		return 1;
+		return cnt;
 	}
 	
 	public int deleteTemp(CookingRecipeDTO cookingRecipeDTO) {
 		int cnt=0;
 		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
-		cookingRecipeDAO.deleteTemp_recipe_img(cookingRecipeDTO);
 		cnt = cookingRecipeDAO.deleteTemp_recipe(cookingRecipeDTO);
 		
 		return cnt;
