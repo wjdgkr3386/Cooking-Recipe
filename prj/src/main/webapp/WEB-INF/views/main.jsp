@@ -151,7 +151,7 @@
 </head>
 <body>
 	<h1 style="margin-top:50px; text-align:center; cursor:pointer;" onclick="location.reload()">Cooking Recipe</h1>
-	<div style="text-align:right; padding:0 30;">
+	<div style="text-align:right; width:2000px; margin:0 auto;">
 		<c:if test="${empty requestScope.mid}">
 			<span style="cursor:pointer;" onclick="location.href='/login.do'">
 				로그인
@@ -173,7 +173,7 @@
 	</div>
 	<div class="menubar">
 		<span class="item" onclick="goWrite()">레시피 공유</span>
-		<span class="item">찜한 레시피</span>
+		<span class="item">즐겨찾기</span>
 		<span class="item">마이페이지</span>
 		<span class="item">공지사항</span>
 	</div>
