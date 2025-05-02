@@ -60,3 +60,10 @@ create table temp_recipe_ingredient(
     foreign key(r_code) references temp_recipe(r_code),
     foreign key(ingredient_code) references ingredient(ingredient_code)
 );
+
+create table recipe_heart(
+    uuid    varchar2(200),
+    r_code  varchar2(200),  
+    foreign key(uuid) references user_info(uuid),
+    foreign key(r_code) references recipe(r_code)
+);

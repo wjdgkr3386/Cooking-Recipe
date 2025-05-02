@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Map;
+
 public interface CookingRecipeService {
 
 	int insertRecipe(CookingRecipeDTO cookingRecipeDTO) throws Exception;
@@ -12,4 +14,5 @@ public interface CookingRecipeService {
 	
 	int updatePost(CookingRecipeDTO cookingRecipeDTO) throws Exception;
 	
+	int changeHeart(Map<String, Object> map) throws Exception;
 }

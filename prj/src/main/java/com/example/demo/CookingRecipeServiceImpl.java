@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,5 +93,17 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		}
 		
 		return 1;
+	}
+	
+
+	public int changeHeart(Map<String,Object> map) {
+		int cnt = 0;
+		cnt = cookingRecipeDAO.checkHeart(map);
+		if(cnt>0) {
+			cookingRecipeDAO.deleteHeart(map);
+		}else {
+			cookingRecipeDAO.insertHeart(map);
+		}
+		return cnt;
 	}
 }

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import java.sql.Clob;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -276,7 +277,34 @@ public class CookingRecipeController {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
 		return cnt;
 	}
+
+	@RequestMapping(value = "/changeHeart.do")
+	public Map<String,Object> changeHeart(
+		HttpSession session,
+		@RequestParam("r_code") String r_code
+	) {
+		Map<String,Object> response = new HashMap<String,Object>();
+		String mid = (String) session.getAttribute("mid");
+		if (mid == null) {
+			response.put("cnt", -11);
+			return response;
+		}
+		Map<String, Object> map = new HashMap<String,Object>();
+		map.put("mid", mid);
+		map.put("r_code", r_code);
+		int cnt = 0;
+		try {
+			cnt = cookingRecipeService.changeHeart(map);
+		} catch (RuntimeException r) {
+			cnt = Integer.parseInt(r.getMessage());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		response.put("cnt", cnt);
+		
+		return response;
+	}
+	
 }

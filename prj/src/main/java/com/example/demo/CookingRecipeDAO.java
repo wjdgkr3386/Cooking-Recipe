@@ -33,5 +33,8 @@ public interface CookingRecipeDAO {
 	
 	int insertTemp_recipe(CookingRecipeDTO cookingRecipeDTO);
 	int insertTemp_recipe_content(CookingRecipeDTO cookingRecipeDTO);
-	
+
+	int checkHeart(Map<String,Object> map);
+	int deleteHeart(Map<String,Object> map);
+	int insertHeart(Map<String,Object> map);
 }

@@ -88,6 +88,21 @@
 		margin-bottom: 1px;
 		line-height: 1.5;
 	}
+	.bottom-div{
+		height: 60px;
+		width: 100%;
+		border: 1px solid black;
+		display: flex;
+		justify-content: right;
+		align-items: center;
+	}
+	.heart{
+		height: 40px;
+		width: 40px;
+		line-height: 40px;
+		margin-right: 40px;
+		cursor: pointer;
+	}
 </style>
 <script>
 $(function(){init();});
@@ -135,12 +150,24 @@ function deletePost(r_code){
 				location.replace("/cookingRecipe.do");
 			}else if(cnt== -11){
 				alert("세션이 없습니다.");
-				location.replace("/cookingRecipe.do");
+				location.replace("/login.do");
 			}else{
 				alert("실패");
 			}
 		}
 	);
+}
+
+async function heartChange(){
+	const r_code = $("[name='r_code']").val();
+	const response = await fetch("/changeHeart.do?r_code="+r_code);
+	const data = await response.json();
+	const cnt = data.cnt;
+	if(cnt==1){
+		$(".heart").attr('src', '/sys_img/빈하트.png');
+	}else{
+		$(".heart").attr('src', '/sys_img/꽉찬하트.png');
+	}
 }
 </script>
 </head>
@@ -151,7 +178,9 @@ function deletePost(r_code){
 		<span>
 			${requestScope.postMap.TITLE}
 		</span>
-		<img class="menu" src="/sys_img/메뉴.png">
+		<c:if test="${mid == postMap.MID}">
+			<img class="menu" src="/sys_img/메뉴.png">
+		</c:if>
 	</div>
 	<hr>
 	<div class="foodImg_ingredient_container">
@@ -189,6 +218,9 @@ function deletePost(r_code){
 			삭제하기
 		</p>
 	</div>
+</div>
+<div class="bottom-div">
+	<img class="heart" src="/sys_img/빈하트.png" onclick="heartChange()">
 </div>
 <form name="rCodeForm">
 	<input type="hidden" name="r_code" value="${requestScope.postMap.R_CODE}">

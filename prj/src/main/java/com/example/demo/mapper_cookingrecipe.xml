@@ -202,4 +202,17 @@
 	</update>
 	
 	
+	
+	<select id="checkHeart" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from recipe_heart where r_code=#{r_code} and uuid=(select uuid from user_info where mid=#{mid})
+	</select>
+	
+	<update id="deleteHeart" parameterType="java.util.HashMap">
+		delete from recipe_heart where r_code=#{r_code} and uuid=(select uuid from user_info where mid=#{mid})
+	</update>
+	
+	<insert id="insertHeart" parameterType="java.util.HashMap">
+		insert into recipe_heart (uuid, r_code) values ((select uuid from user_info where mid=#{mid}), #{r_code})
+	</insert>
+	
 </mapper>
