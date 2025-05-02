@@ -10,6 +10,6 @@ public interface CookingRecipeService {
 	
 	int deletePost(CookingRecipeDTO cookingRecipeDTO) throws Exception;
 	
-	
+	int updatePost(CookingRecipeDTO cookingRecipeDTO) throws Exception;
 	
 }

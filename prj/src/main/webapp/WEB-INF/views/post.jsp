@@ -18,9 +18,6 @@
 		width: 100%;
 		margin: 10 auto;
 	}
-/* 	div{
-		border: 1px solid black;
-	} */
 	.mainContainer{
 		width: 70%;
 		margin: 50 auto 0;
@@ -75,8 +72,21 @@
 		z-index: 999;
 	}
 	.foodImg{
+		display: inline-block;
 		width: 400px;
 		height: 400px;
+		vertical-align: top
+	}
+	.ingredient-box{
+		display: inline-block;
+		width: 200px;
+		height: 400px;
+		vertical-align: top;
+		font-size: 20px;
+	}
+	.ingredient-box ul li{
+		margin-bottom: 1px;
+		line-height: 1.5;
 	}
 </style>
 <script>
@@ -107,9 +117,6 @@ function hideMenuBox() {
 }
 
 function goModify(r_code){
-	if(!confirm( "수정을 하기 위해서는 완성된 음식 이미지를 다시 입력해야 합니다.\n수정 페이지로 넘어가시겠습니까?" )){
-		return;
-	}
 	location.href="/post/"+r_code+"/modify";
 }
 
@@ -147,7 +154,28 @@ function deletePost(r_code){
 		<img class="menu" src="/sys_img/메뉴.png">
 	</div>
 	<hr>
-	<img class="foodImg" src="data:image/jpeg;base64, ${requestScope.postMap.FOODIMG}">
+	<div class="foodImg_ingredient_container">
+		<img class="foodImg" src="data:image/jpeg;base64, ${requestScope.postMap.FOODIMG}">
+		<c:forEach begin="0" end="${(postIngredientMapSize-1)/12}" varStatus="s">
+			<div class="ingredient-box">
+				<ul>
+					<c:choose>
+					    <c:when test="${s.index != (postIngredientMapSize-1)/12}">
+					    	<c:forEach var="data" items="${requestScope.postIngredientMap}" begin="${s.index * 12}" end="${(s.index*12) + 11}">
+					        	<li>${data.INGREDIENT}</li>
+					        </c:forEach>
+					    </c:when>
+						<c:otherwise>
+					        <c:forEach var="data" items="${requestScope.postIngredientMap}" begin="${s.index * 12}" end="${requestScope.postIngredientMapSize-1}">
+					        	<li>${data.INGREDIENT}</li>
+					        </c:forEach>
+					    </c:otherwise>
+					</c:choose>
+				</ul>
+			</div>
+		</c:forEach>
+	</div>
+	<hr>
 	<div class="content-div">
 		${requestScope.postMap.CONTENT}
 	</div>

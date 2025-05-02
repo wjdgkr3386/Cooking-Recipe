@@ -5,8 +5,8 @@ create table user_info(
     email   varchar2(200)   not null
 );
 
-create table recipe_ingredient(
-    ingredient          number(38)          primary key,
+create table ingredient(
+    ingredient_code     number(3)			primary key,
     ingredient_name     varchar2(100)       unique
 );
 
@@ -15,9 +15,7 @@ create table recipe(
     title           varchar2(200)   not null,
     uuid            varchar2(200),
     Recommend       number(38)      default 0,
-    ingredient		number(3),
-    foreign key(uuid) references user_info(uuid),
-    foreign key(ingredient) references recipe_ingredient(ingredient)
+    foreign key(uuid) references user_info(uuid)
 );  
 
 create table recipe_content(
@@ -34,12 +32,18 @@ create table recipe_img(
     foreign key(r_code) references recipe(r_code)
 );
 
+create table recipe_ingredient(
+    r_code				varchar2(200),
+    ingredient_code		number(3),
+    foreign key(r_code) references recipe(r_code),
+    foreign key(ingredient_code) references ingredient(ingredient_code)
+);
+
 create table temp_recipe(                         
     r_code          varchar2(200)   primary key,
     title           varchar2(200)   null,
     uuid            varchar2(200),
-    foreign key(uuid) references user_info(uuid),
-    foreign key(ingredient) references recipe_ingredient(ingredient)
+    foreign key(uuid) references user_info(uuid)
 );  
 
 create table temp_recipe_content(
@@ -50,3 +54,9 @@ create table temp_recipe_content(
     foreign key(uuid) references user_info(uuid)
 );
 
+create table temp_recipe_ingredient(
+    r_code				varchar2(200),
+    ingredient_code		number(3),
+    foreign key(r_code) references temp_recipe(r_code),
+    foreign key(ingredient_code) references ingredient(ingredient_code)
+);

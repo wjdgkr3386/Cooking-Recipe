@@ -195,7 +195,7 @@
 							</c:when>
 						    <c:otherwise>
 								<tr>
-									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${(stat.index*3)+((requestScope.recipeListSize-1)%3)}">
+									<c:forEach var="data" items="${requestScope.recipeList}" begin="${(stat.index*3)}" end="${requestScope.recipeListSize-1}">
 										<td class="card">
 											<img class="image" src='data:image/jpeg;base64, ${data.FOODIMG}' alt="이미지" onclick="goPost('${data.R_CODE}')">
 											<div class="food_name">${data.TITLE}</div>

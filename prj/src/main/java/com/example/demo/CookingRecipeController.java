@@ -1,13 +1,13 @@
 package com.example.demo;
 
 import java.sql.Clob;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,7 +28,6 @@ public class CookingRecipeController {
 	) {
 		String mid = (String) session.getAttribute("mid");
 		ModelAndView mav = new ModelAndView();
-
 		List<Map<String, Object>> recipeList = cookingRecipeDAO.getRecipeAll();
 
 		for(Map<String, Object> map : recipeList) {
@@ -48,7 +47,6 @@ public class CookingRecipeController {
 
 			map.put("FOODIMG", foodImg);
 		}
-		
 		mav.addObject("recipeList", recipeList);
 		mav.addObject("recipeListSize", recipeList.size());
 		mav.addObject("mid", mid);
@@ -102,6 +100,7 @@ public class CookingRecipeController {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+
 		return cnt;
 	}
 
@@ -191,6 +190,7 @@ public class CookingRecipeController {
 		ModelAndView mav = new ModelAndView();
 		String mid = (String) session.getAttribute("mid");
 		Map<String,Object> postMap = cookingRecipeDAO.getPost(r_code);
+		List<Map<String,Object>> postIngredientMap = cookingRecipeDAO.getIngredient(r_code);
 		try {
 			String content = Util.convertClobToString((Clob) postMap.get("CONTENT"));
 			String foodImg = Util.convertClobToString((Clob) postMap.get("FOODIMG"));
@@ -201,6 +201,8 @@ public class CookingRecipeController {
 		}
 		mav.addObject("mid", mid);
 		mav.addObject("postMap", postMap);
+		mav.addObject("postIngredientMap", postIngredientMap);
+		mav.addObject("postIngredientMapSize", postIngredientMap.size());
 		mav.setViewName("post.jsp");
 		return mav;
 	}
@@ -213,14 +215,23 @@ public class CookingRecipeController {
 		ModelAndView mav = new ModelAndView();
 		String mid = (String) session.getAttribute("mid");
 		Map<String,Object> postMap = cookingRecipeDAO.getPost(r_code);
+		List<Map<String,Object>> postIngredientMap = cookingRecipeDAO.getIngredient(r_code);
+		List<String> ingredientList = new ArrayList<String>();
+		for(Map<String,Object> map : postIngredientMap) {
+			ingredientList.add((String)map.get("INGREDIENT"));
+		}
 		try {
 			String content = Util.convertClobToString((Clob) postMap.get("CONTENT"));
+			String foodImg = Util.convertClobToString((Clob) postMap.get("FOODIMG"));
 			postMap.put("CONTENT", content);
+			postMap.put("FOODIMG", foodImg);
 		}catch(Exception e) {
 			System.out.println(e);
 		}
 		mav.addObject("mid", mid);
 		mav.addObject("postMap", postMap);
+		mav.addObject("ingredientList", ingredientList);
+		mav.addObject("ingredientListSize", ingredientList.size());
 		mav.setViewName("modify.jsp");
 		return mav;
 	}
@@ -238,6 +249,28 @@ public class CookingRecipeController {
 		int cnt = 0;
 		try {
 			cnt = cookingRecipeService.deletePost(cookingRecipeDTO);
+		} catch (RuntimeException r) {
+			cnt = Integer.parseInt(r.getMessage());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+
+		return cnt;
+	}
+
+	@RequestMapping(value = "/writeUpdateProc.do")
+	public int writeUpdateProc(
+		CookingRecipeDTO cookingRecipeDTO,
+		HttpSession session
+	) {
+		String mid = (String) session.getAttribute("mid");
+		if (mid == null) {
+			return -11;
+		}
+
+		int cnt = 0;
+		try {
+			cnt = cookingRecipeService.updatePost(cookingRecipeDTO);
 		} catch (RuntimeException r) {
 			cnt = Integer.parseInt(r.getMessage());
 		} catch (Exception e) {

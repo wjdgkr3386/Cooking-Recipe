@@ -370,15 +370,19 @@
     	const content = $(".editor").html();
     	const title = $("[name='title']").val().trim();
     	const foodImg = $("input[name='foodImg']");
+    	const ingredient = $("[name='ingredient']");
     	
     	if(title===""){
     		alert("제목을 입력해주세요.");
+    		$("[name='title']")[0].scrollIntoView({ behavior: 'smooth' });
     		return;
     	}else if(title.length>25){
     		alert("제목은 25글자 이하로 써주세요.");
+    		$("[name='title']")[0].scrollIntoView({ behavior: 'smooth' });
     	}
     	if(content.trim()===""){
     		alert("내용을 입력해주세요.");
+    		$(".editor")[0].scrollIntoView({ behavior: 'smooth' });
     		return;
     	}
     	if(foodImg.val() === ""){
@@ -386,7 +390,11 @@
     		$('.upload-box')[0].scrollIntoView({ behavior: 'smooth' });
     		return;
     	}
-    	
+    	if( ingredient.filter(":checked").length === 0 ){
+    		alert("레시피에 필요한 재료를 선택해주세요.");
+    		ingredient[0].scrollIntoView({ behavior: 'smooth' });
+    		return;
+    	}
     	
         const editorContent = $('.editor').html();
         const editorSize = new Blob([editorContent]).size;
@@ -613,17 +621,6 @@
 		</div>
     </div>
     <input type="file" id="foodImg" name="foodImg" style="display:none;">
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     <div class="bottomSavebar">
     	<span class="bottomCancel" onclick="cancel()">
