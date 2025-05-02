@@ -91,10 +91,13 @@
 	.bottom-div{
 		height: 60px;
 		width: 100%;
-		border: 1px solid black;
 		display: flex;
 		justify-content: right;
 		align-items: center;
+		border-top: 1px solid #edd8e8;
+		border-bottom: 1px solid #edd8e8;
+		  position: fixed;
+		  bottom: 0;
 	}
 	.heart{
 		height: 40px;
@@ -220,7 +223,14 @@ async function heartChange(){
 	</div>
 </div>
 <div class="bottom-div">
-	<img class="heart" src="/sys_img/빈하트.png" onclick="heartChange()">
+	<c:choose>
+		<c:when test="${requestScope.cnt==0}">
+			<img class="heart" src="/sys_img/빈하트.png" onclick="heartChange()">
+		</c:when>
+		<c:when test="${requestScope.cnt==1}">
+			<img class="heart" src="/sys_img/꽉찬하트.png" onclick="heartChange()">
+		</c:when>
+	</c:choose>
 </div>
 <form name="rCodeForm">
 	<input type="hidden" name="r_code" value="${requestScope.postMap.R_CODE}">

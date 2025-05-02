@@ -192,6 +192,10 @@ public class CookingRecipeController {
 		String mid = (String) session.getAttribute("mid");
 		Map<String,Object> postMap = cookingRecipeDAO.getPost(r_code);
 		List<Map<String,Object>> postIngredientMap = cookingRecipeDAO.getIngredient(r_code);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("mid", mid);
+		map.put("r_code", r_code);
+		int cnt = cookingRecipeDAO.checkHeart(map);
 		try {
 			String content = Util.convertClobToString((Clob) postMap.get("CONTENT"));
 			String foodImg = Util.convertClobToString((Clob) postMap.get("FOODIMG"));
@@ -201,6 +205,7 @@ public class CookingRecipeController {
 			System.out.println(e);
 		}
 		mav.addObject("mid", mid);
+		mav.addObject("cnt", cnt);
 		mav.addObject("postMap", postMap);
 		mav.addObject("postIngredientMap", postIngredientMap);
 		mav.addObject("postIngredientMapSize", postIngredientMap.size());
