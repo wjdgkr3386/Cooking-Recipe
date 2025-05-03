@@ -101,6 +101,7 @@
 		margin: 15 auto;
 		border: 1px solid lightpink;
 		box-shadow: -1px 5px 1px rgba(0, 0, 0, 0.1);
+		user-select: none;
 	}
 	.item{
 		cursor: pointer;
@@ -154,6 +155,7 @@
 			alert("로그인이 필요한 기능입니다.");
 			location.href="/login.do";
 		}
+    	if($("[name='menubarNum']").val()==="2") { return; }
 		
 		var formObj = $("[name='submitForm']");
 		ajax(
@@ -164,16 +166,15 @@
 				var obj = $(responseHtml);
 				var recipe_table = obj.find(".recipe_table");
 				$(".recipe_table").replaceWith(recipe_table);
+				$("[name='menubarNum']").val("2");
+				$(".recipeListBtn").css({"text-decoration":"none"});
+				$(".jjimListBtn").css({"text-decoration":"underline"});
 			}
 		);
     }
     
     function recipeList(){
-		var session = "<%= (String) session.getAttribute("mid") %>";
-		if(session=="null"){
-			alert("로그인이 필요한 기능입니다.");
-			location.href="/login.do";
-		}
+    	if($("[name='menubarNum']").val()==="1") { return; }
 		
 		var formObj = $("[name='submitForm']");
 		ajax(
@@ -184,6 +185,9 @@
 				var obj = $(responseHtml);
 				var recipe_table = obj.find(".recipe_table");
 				$(".recipe_table").replaceWith(recipe_table);
+				$("[name='menubarNum']").val("1");
+				$(".recipeListBtn").css({"text-decoration":"underline"});
+				$(".jjimListBtn").css({"text-decoration":"none"});
 			}
 		);
     }
@@ -212,9 +216,9 @@
 		</c:if>
 	</div>
 	<div class="menubar">
-		<span class="item" onclick="recipeList()">레시피 목록</span>
-		<span class="item" onclick="jjimList()">찜 목록</span>
-		<span class="item" onclick="goWrite()">레시피 작성</span>
+		<span class="item recipeListBtn" style="text-decoration: underline;" onclick="recipeList()">레시피 목록</span>
+		<span class="item jjimListBtn" onclick="jjimList()">찜 목록</span>
+		<span class="item"onclick="goWrite()">레시피 작성</span>
 		<span class="item">마이페이지</span>
 		<span class="item">공지사항</span>
 	</div>
@@ -308,5 +312,6 @@
 <!-- 전송을 위한 form -->
 <form name="submitForm">
 </form>
+<input type="hidden" name="menubarNum" value="1">
 </body>
 </html>
