@@ -62,17 +62,11 @@
 			select
 				r.r_code as "R_CODE",
 				r.title as "TITLE",
-				r.uuid as "UUID",
-				r.recommend as "RECOMMEND",
-				rc.content as "CONTENT",
 				ri.img as "FOODIMG"
 			from
 				recipe r,
-				recipe_content rc,
 				recipe_img ri
 			where
-				r.r_code = rc.r_code
-				and
 				r.r_code = ri.r_code
 
     <![CDATA[
@@ -213,8 +207,6 @@
 		insert into recipe_heart (uuid, r_code) values ((select uuid from user_info where mid=#{mid}), #{r_code})
 	</insert>
 	
-	
-	
 	<select id="checkJjim" parameterType="java.util.HashMap" resultType="int">
 		select count(*) from recipe_jjim where r_code=#{r_code} and uuid=(select uuid from user_info where mid=#{mid})
 	</select>
@@ -226,4 +218,24 @@
 	<insert id="insertJjim" parameterType="java.util.HashMap">
 		insert into recipe_jjim (uuid, r_code) values ((select uuid from user_info where mid=#{mid}), #{r_code})
 	</insert>
+	
+	<select id="getJjim" parameterType="String" resultType="java.util.HashMap">
+		select * from ( select  rownum RNUM, zxcvb.* from  (
+		
+			select
+				r.r_code as "R_CODE",
+				r.title as "TITLE",
+				ri.img as "FOODIMG"
+			from
+				recipe r,
+				recipe_img ri
+			where
+				r.r_code = ri.r_code
+				and
+				r.r_code in (select r_code from recipe_jjim rj where rj.uuid=(select ui.uuid from user_info ui where mid=#{mid}))
+
+	    <![CDATA[
+	        ) zxcvb) where  RNUM  >= 1  and RNUM <= 30
+	    ]]>
+	</select>
 </mapper>

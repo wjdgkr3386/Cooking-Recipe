@@ -41,4 +41,6 @@ public interface CookingRecipeDAO {
 	int checkJjim(Map<String, Object> map);
 	int deleteJjim(Map<String,Object> map);
 	int insertJjim(Map<String,Object> map);
+	
+	List<Map<String,Object>> getJjim(String mid);
 }

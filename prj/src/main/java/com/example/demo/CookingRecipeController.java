@@ -195,7 +195,8 @@ public class CookingRecipeController {
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("mid", mid);
 		map.put("r_code", r_code);
-		int cnt = cookingRecipeDAO.checkHeart(map);
+		int heartCnt = cookingRecipeDAO.checkHeart(map);
+		int jjimCnt = cookingRecipeDAO.checkJjim(map);
 		try {
 			String content = Util.convertClobToString((Clob) postMap.get("CONTENT"));
 			String foodImg = Util.convertClobToString((Clob) postMap.get("FOODIMG"));
@@ -205,7 +206,8 @@ public class CookingRecipeController {
 			System.out.println(e);
 		}
 		mav.addObject("mid", mid);
-		mav.addObject("cnt", cnt);
+		mav.addObject("heartCnt", heartCnt);
+		mav.addObject("jjimCnt", jjimCnt);
 		mav.addObject("postMap", postMap);
 		mav.addObject("postIngredientMap", postIngredientMap);
 		mav.addObject("postIngredientMapSize", postIngredientMap.size());
@@ -336,8 +338,27 @@ public class CookingRecipeController {
 			System.out.println(e);
 		}
 		response.put("cnt", cnt);
-		System.out.println(cnt);
 		return response;
 	}
-	
+
+	@RequestMapping(value = "/jjimList")
+	public ModelAndView jjimList(
+		HttpSession session
+	) {
+		ModelAndView mav = new ModelAndView();
+		String mid = (String) session.getAttribute("mid");
+		List<Map<String, Object>> recipeList = new ArrayList<Map<String,Object>>();
+		try {
+			recipeList = cookingRecipeDAO.getJjim(mid);
+			for(Map<String,Object> map : recipeList) {
+				map.put("FOODIMG", Util.convertClobToString((Clob) map.get("FOODIMG")));
+			}
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		mav.addObject("recipeList", recipeList);
+		mav.addObject("recipeListSize", recipeList.size());
+		mav.setViewName("main.jsp");
+		return mav;
+	}
 }

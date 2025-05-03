@@ -200,12 +200,12 @@ function jjim(){
 			const cnt = data.cnt;
 			const thisObj = $(".jjim");
 			if(cnt==1){
-				thisObj.css({"background-color":"#4caf50" , "color":"white"});
+				thisObj.css({"background-color":"white" , "color":"#4caf50"});
 			}else if(cnt==-11){
 				alert("세션이 없습니다.");
 				location.href="/login.do";
 			}else{
-				thisObj.css({"background-color":"white" , "color":"#4caf50"});
+				thisObj.css({"background-color":"#4caf50" , "color":"white"});
 			}
 		})
 	  .catch(error => console.error("Error:", error));
@@ -262,18 +262,18 @@ function jjim(){
 </div>
 <div class="bottom-div">
 	<c:choose>
-		<c:when test="${requestScope.cnt==0}">
+		<c:when test="${requestScope.heartCnt==0}">
 			<img class="heart" src="/sys_img/빈하트.png" onclick="heartChange()">
 		</c:when>
-		<c:when test="${requestScope.cnt==1}">
+		<c:when test="${requestScope.heartCnt==1}">
 			<img class="heart" src="/sys_img/꽉찬하트.png" onclick="heartChange()">
 		</c:when>
 	</c:choose>
 	<c:choose>
-		<c:when test="${requestScope.cnt==0}">
+		<c:when test="${requestScope.jjimCnt==0}">
 			<a style="background-color:white; color:#4caf50;" class="jjim" onclick="jjim()">찜하기</a>
 		</c:when>
-		<c:when test="${requestScope.cnt==1}">
+		<c:when test="${requestScope.jjimCnt==1}">
 			<a style="background-color:#4caf50; color:white;" class="jjim" onclick="jjim()">찜하기</a>
 		</c:when>
 	</c:choose>

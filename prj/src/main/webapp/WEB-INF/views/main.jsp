@@ -110,7 +110,7 @@
 <script>
 
 	function logout(){
-		var formObj = $("[name='logoutForm']");
+		var formObj = $("[name='submitForm']");
 		ajax(
 		     "/logout.do",
 		     "post",
@@ -147,6 +147,46 @@
         form.appendChild(input);
         document.body.appendChild(form).submit();
     }
+    
+    function jjimList(){
+		var session = "<%= (String) session.getAttribute("mid") %>";
+		if(session=="null"){
+			alert("로그인이 필요한 기능입니다.");
+			location.href="/login.do";
+		}
+		
+		var formObj = $("[name='submitForm']");
+		ajax(
+			"/jjimList",
+			"post",
+			formObj,
+			function (responseHtml) {
+				var obj = $(responseHtml);
+				var recipe_table = obj.find(".recipe_table");
+				$(".recipe_table").replaceWith(recipe_table);
+			}
+		);
+    }
+    
+    function recipeList(){
+		var session = "<%= (String) session.getAttribute("mid") %>";
+		if(session=="null"){
+			alert("로그인이 필요한 기능입니다.");
+			location.href="/login.do";
+		}
+		
+		var formObj = $("[name='submitForm']");
+		ajax(
+			"/cookingRecipe.do",
+			"post",
+			formObj,
+			function (responseHtml) {
+				var obj = $(responseHtml);
+				var recipe_table = obj.find(".recipe_table");
+				$(".recipe_table").replaceWith(recipe_table);
+			}
+		);
+    }
 </script>
 </head>
 <body>
@@ -172,8 +212,8 @@
 		</c:if>
 	</div>
 	<div class="menubar">
-		<span class="item">레시피 목록</span>
-		<span class="item">즐겨찾기</span>
+		<span class="item" onclick="recipeList()">레시피 목록</span>
+		<span class="item" onclick="jjimList()">찜 목록</span>
 		<span class="item" onclick="goWrite()">레시피 작성</span>
 		<span class="item">마이페이지</span>
 		<span class="item">공지사항</span>
@@ -265,8 +305,8 @@
 			</div>
 		</div>
 	</div>
-<!-- 로그아웃을 위한 form -->
-<form name="logoutForm">
+<!-- 전송을 위한 form -->
+<form name="submitForm">
 </form>
 </body>
 </html>
