@@ -208,6 +208,8 @@
 			}
 		);
     }
+    
+    
 </script>
 </head>
 <body>
@@ -223,11 +225,7 @@
 			</span>
 		</c:if>
 		<c:if test="${not empty requestScope.mid}">
-			<span style="cursor:pointer;">
-				${requestScope.mid}
-			</span>
-			&nbsp; | &nbsp; 
-			<span style="cursor:pointer;" onclick="logout()">
+			<span style="cursor:pointer; user-select:none;" onclick="logout()">
 				로그아웃
 			</span>
 		</c:if>
@@ -236,7 +234,7 @@
 		<span class="item recipeListBtn" style="text-decoration: underline;" onclick="recipeList()">레시피 목록</span>
 		<span class="item jjimListBtn" onclick="jjimList()">찜 목록</span>
 		<span class="item"onclick="goWrite()">레시피 작성</span>
-		<span class="item">마이페이지</span>
+		<span class="item" onclick="location.href='/myPage.do'">마이페이지</span>
 		<span class="item">공지사항</span>
 	</div>
 	<div style="width:2000px; height:800px; position: relative; margin: 0 auto;">

@@ -44,5 +44,6 @@ public interface CookingRecipeDAO {
 
 	List<Map<String,Object>> getJjim(String mid);
 	List<Map<String,Object>> search(CookingRecipeDTO cookingRecipeDTO);
+	List<Map<String,Object>> getMyPost(String mid);
 	
 }

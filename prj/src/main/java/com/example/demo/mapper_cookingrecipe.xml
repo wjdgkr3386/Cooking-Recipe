@@ -265,4 +265,20 @@
 	        ) zxcvb) where  RNUM  >= 1  and RNUM <= 30
 	    ]]>
 	</select>
+	
+	<select id="getMyPost" parameterType="String" resultType="java.util.HashMap">
+		select
+			r.r_code as "R_CODE",
+			r.title as "TITLE",
+			ri.img as "FOODIMG"
+		from
+			recipe r,
+			recipe_img ri
+		where
+			r.r_code = ri.r_code
+			and
+			r.uuid = (select uuid from user_info where mid=#{mid})
+	</select>
+	
+	
 </mapper>

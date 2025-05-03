@@ -390,4 +390,27 @@ public class CookingRecipeController {
 		mav.setViewName("main.jsp");
 		return mav;
 	}
+
+	@RequestMapping(value = "/myPage.do")
+	public ModelAndView myPage(
+		HttpSession session
+	) {
+		ModelAndView mav = new ModelAndView();
+		String mid = (String) session.getAttribute("mid");
+		List<Map<String, Object>> recipeList = new ArrayList<Map<String,Object>>();
+		try {
+			recipeList = cookingRecipeDAO.getMyPost(mid);
+			for(Map<String,Object> map : recipeList) {
+				map.put("FOODIMG", Util.convertClobToString((Clob) map.get("FOODIMG")));
+			}
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		mav.addObject("recipeList", recipeList);
+		mav.addObject("recipeListSize", recipeList.size());
+		mav.setViewName("myPage.jsp");
+		return mav;
+	}
+	
+	
 }
