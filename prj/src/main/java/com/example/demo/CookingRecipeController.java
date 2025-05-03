@@ -34,7 +34,6 @@ public class CookingRecipeController {
 		for(Map<String, Object> map : recipeList) {
 			Clob clobImg = (Clob) map.get("FOODIMG");
 			String foodImg="";
-			
 			try {
 				if(clobImg!=null) {
 					foodImg = Util.convertClobToString(clobImg);
@@ -45,9 +44,9 @@ public class CookingRecipeController {
 			}catch(Exception e) {
 				System.out.println(e);
 			}
-
 			map.put("FOODIMG", foodImg);
 		}
+		
 		mav.addObject("recipeList", recipeList);
 		mav.addObject("recipeListSize", recipeList.size());
 		mav.addObject("mid", mid);
@@ -55,6 +54,36 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	@RequestMapping(value = "/search.do")
+	public ModelAndView search(
+		CookingRecipeDTO cookingRecipeDTO,
+		HttpSession session
+	) {
+		ModelAndView mav = new ModelAndView();
+		List<Map<String,Object>> recipeList = cookingRecipeDAO.search(cookingRecipeDTO);
+		
+		for(Map<String, Object> map : recipeList) {
+			Clob clobImg = (Clob) map.get("FOODIMG");
+			String foodImg="";
+			try {
+				if(clobImg!=null) {
+					foodImg = Util.convertClobToString(clobImg);
+					if(foodImg==null) {
+						foodImg="";
+					}
+				}
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+			map.put("FOODIMG", foodImg);
+		}
+		
+		mav.addObject("recipeList", recipeList);
+		mav.addObject("recipeListSize", recipeList.size());
+		mav.setViewName("main.jsp");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/write.do")
 	public ModelAndView write(
 	) {

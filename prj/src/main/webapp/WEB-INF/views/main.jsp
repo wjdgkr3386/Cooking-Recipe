@@ -155,7 +155,7 @@
 			alert("로그인이 필요한 기능입니다.");
 			location.href="/login.do";
 		}
-    	if($("[name='menubarNum']").val()==="2") { return; }
+    	if($("[name='choiceMenu']").val()==="2") { return; }
 		
 		var formObj = $("[name='submitForm']");
 		ajax(
@@ -166,7 +166,7 @@
 				var obj = $(responseHtml);
 				var recipe_table = obj.find(".recipe_table");
 				$(".recipe_table").replaceWith(recipe_table);
-				$("[name='menubarNum']").val("2");
+				$("[name='choiceMenu']").val("2");
 				$(".recipeListBtn").css({"text-decoration":"none"});
 				$(".jjimListBtn").css({"text-decoration":"underline"});
 			}
@@ -174,7 +174,7 @@
     }
     
     function recipeList(){
-    	if($("[name='menubarNum']").val()==="1") { return; }
+    	if($("[name='choiceMenu']").val()==="1") { return; }
 		
 		var formObj = $("[name='submitForm']");
 		ajax(
@@ -185,7 +185,24 @@
 				var obj = $(responseHtml);
 				var recipe_table = obj.find(".recipe_table");
 				$(".recipe_table").replaceWith(recipe_table);
-				$("[name='menubarNum']").val("1");
+				$("[name='choiceMenu']").val("1");
+				$(".recipeListBtn").css({"text-decoration":"underline"});
+				$(".jjimListBtn").css({"text-decoration":"none"});
+			}
+		);
+    }
+    
+    function search(){
+		var formObj = $("[name='searchForm']");
+		ajax(
+			"/search.do",
+			"post",
+			formObj,
+			function (responseHtml) {
+				var obj = $(responseHtml);
+				var recipe_table = obj.find(".recipe_table");
+				$(".recipe_table").replaceWith(recipe_table);
+				$("[name='choiceMenu']").val("1");
 				$(".recipeListBtn").css({"text-decoration":"underline"});
 				$(".jjimListBtn").css({"text-decoration":"none"});
 			}
@@ -255,8 +272,10 @@
 		</div>
 		<div class="ingredient_container">
 			<div class="search_button_div">
-				<input type="button" class="search_button" value="검색">
+				<input type="button" class="search_button" value="검색" onclick="search()">
 			</div>
+			
+<form name="searchForm">
 			<div class="ingredient_checkbox">
 				<label><input type="checkbox" name="ingredient" value="1">계란</label>
 				<label><input type="checkbox" name="ingredient" value="2">김치</label>
@@ -307,11 +326,13 @@
 				<label><input type="checkbox" name="ingredient" value="47">닭고기</label>
 				<label><input type="checkbox" name="ingredient" value="48">생선</label>
 			</div>
+			
+<input type="hidden" name="choiceMenu" value="1">
+</form>
 		</div>
 	</div>
 <!-- 전송을 위한 form -->
 <form name="submitForm">
 </form>
-<input type="hidden" name="menubarNum" value="1">
 </body>
 </html>

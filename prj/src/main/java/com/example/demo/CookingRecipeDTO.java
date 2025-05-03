@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CookingRecipeDTO {
 
+	int choiceMenu;
 	String title;
 	String content;
 	String r_code;
@@ -15,7 +16,16 @@ public class CookingRecipeDTO {
 	String foodImgName;
 	String foodImgBase64;
 	List<Integer> ingredient;
+	int ingredientSize;
 	
+	
+	
+	public int getChoiceMenu() {
+		return choiceMenu;
+	}
+	public void setChoiceMenu(int choiceMenu) {
+		this.choiceMenu = choiceMenu;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -69,6 +79,12 @@ public class CookingRecipeDTO {
 	}
 	public void setIngredient(List<Integer> ingredient) {
 		this.ingredient = ingredient;
+	}
+	public int getIngredientSize() {
+		return ingredientSize;
+	}
+	public void setIngredientSize(int ingredientSize) {
+		this.ingredientSize = ingredientSize;
 	}
 	
 	

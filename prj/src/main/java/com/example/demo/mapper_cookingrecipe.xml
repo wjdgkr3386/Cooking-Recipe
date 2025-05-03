@@ -238,4 +238,31 @@
 	        ) zxcvb) where  RNUM  >= 1  and RNUM <= 30
 	    ]]>
 	</select>
+	
+	<select id="search" parameterType="com.example.demo.CookingRecipeDTO" resultType="java.util.HashMap">
+		select * from ( select  rownum RNUM, zxcvb.* from  (
+		
+			select
+				r.r_code as "R_CODE",
+				r.title as "TITLE",
+				ri.img as "FOODIMG"
+			from
+				recipe r,
+				recipe_img ri
+			where
+				r.r_code = ri.r_code
+				<if test="ingredient!=null and ingredient.size>0">
+	                and
+	                not exists( 
+	                    select 1 from recipe_ingredient where ingredient_code not in (	
+			                <foreach item="i" collection="ingredient" separator=" , ">
+			                    #{i}
+			                </foreach>			
+	                    )  
+	                )
+                </if>
+	    <![CDATA[
+	        ) zxcvb) where  RNUM  >= 1  and RNUM <= 30
+	    ]]>
+	</select>
 </mapper>
