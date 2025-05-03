@@ -15,4 +15,6 @@ public interface CookingRecipeService {
 	int updatePost(CookingRecipeDTO cookingRecipeDTO) throws Exception;
 	
 	int changeHeart(Map<String, Object> map) throws Exception;
+	
+	int jjim(Map<String, Object> map) throws Exception;
 }

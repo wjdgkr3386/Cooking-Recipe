@@ -37,4 +37,8 @@ public interface CookingRecipeDAO {
 	int checkHeart(Map<String,Object> map);
 	int deleteHeart(Map<String,Object> map);
 	int insertHeart(Map<String,Object> map);
+	
+	int checkJjim(Map<String, Object> map);
+	int deleteJjim(Map<String,Object> map);
+	int insertJjim(Map<String,Object> map);
 }

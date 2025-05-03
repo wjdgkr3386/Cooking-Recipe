@@ -172,8 +172,9 @@
 		</c:if>
 	</div>
 	<div class="menubar">
-		<span class="item" onclick="goWrite()">레시피 공유</span>
+		<span class="item">레시피 목록</span>
 		<span class="item">즐겨찾기</span>
+		<span class="item" onclick="goWrite()">레시피 작성</span>
 		<span class="item">마이페이지</span>
 		<span class="item">공지사항</span>
 	</div>

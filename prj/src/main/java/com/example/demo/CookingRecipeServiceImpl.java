@@ -95,7 +95,6 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		return 1;
 	}
 	
-
 	public int changeHeart(Map<String,Object> map) {
 		int cnt = 0;
 		cnt = cookingRecipeDAO.checkHeart(map);
@@ -103,6 +102,17 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 			cookingRecipeDAO.deleteHeart(map);
 		}else {
 			cookingRecipeDAO.insertHeart(map);
+		}
+		return cnt;
+	}
+	
+	public int jjim(Map<String, Object> map) {
+		int cnt = 0;
+		cnt = cookingRecipeDAO.checkJjim(map);
+		if(cnt>0) {
+			cookingRecipeDAO.deleteJjim(map);
+		}else {
+			cookingRecipeDAO.insertJjim(map);
 		}
 		return cnt;
 	}

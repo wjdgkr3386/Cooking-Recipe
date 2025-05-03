@@ -296,19 +296,47 @@ public class CookingRecipeController {
 			response.put("cnt", -11);
 			return response;
 		}
+		
 		Map<String, Object> map = new HashMap<String,Object>();
 		map.put("mid", mid);
 		map.put("r_code", r_code);
+		
 		int cnt = 0;
 		try {
 			cnt = cookingRecipeService.changeHeart(map);
-		} catch (RuntimeException r) {
-			cnt = Integer.parseInt(r.getMessage());
-		} catch (Exception e) {
+		}catch (Exception e) {
 			System.out.println(e);
 		}
 		response.put("cnt", cnt);
 		
+		return response;
+	}
+
+	@RequestMapping(value = "/jjim")
+	public Map<String,Object> jjim(
+		HttpSession session,
+		@RequestParam("r_code") String r_code
+	) {
+		Map<String,Object> response = new HashMap<String,Object>();
+		Map<String, Object> map = new HashMap<String,Object>();
+		int cnt = 0;
+		String mid = (String) session.getAttribute("mid");
+		
+		if (mid == null) {
+			response.put("cnt", -11);
+			return response;
+		}
+		
+		map.put("mid", mid);
+		map.put("r_code", r_code);
+		
+		try {
+			cnt = cookingRecipeService.jjim(map);
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		response.put("cnt", cnt);
+		System.out.println(cnt);
 		return response;
 	}
 	

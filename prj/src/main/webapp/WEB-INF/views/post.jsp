@@ -96,8 +96,8 @@
 		align-items: center;
 		border-top: 1px solid #edd8e8;
 		border-bottom: 1px solid #edd8e8;
-		  position: fixed;
-		  bottom: 0;
+		position: fixed;
+		bottom: 0;
 	}
 	.heart{
 		height: 40px;
@@ -105,6 +105,19 @@
 		line-height: 40px;
 		margin-right: 40px;
 		cursor: pointer;
+	}
+	.jjim{
+		margin-right: 20px;
+		font-size: 20px;
+		cursor: pointer;
+		user-select: none;
+		border-radius: 20px;
+		border: none;
+		width: 80px;
+		height: 40px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
 <script>
@@ -161,16 +174,41 @@ function deletePost(r_code){
 	);
 }
 
-async function heartChange(){
+function heartChange(){
 	const r_code = $("[name='r_code']").val();
-	const response = await fetch("/changeHeart.do?r_code="+r_code);
-	const data = await response.json();
-	const cnt = data.cnt;
-	if(cnt==1){
-		$(".heart").attr('src', '/sys_img/빈하트.png');
-	}else{
-		$(".heart").attr('src', '/sys_img/꽉찬하트.png');
-	}
+	fetch("/changeHeart.do?r_code="+r_code)
+	  .then(response => response.json())
+	  .then(data => {
+			const cnt = data.cnt;
+			if(cnt==1){
+				$(".heart").attr('src', '/sys_img/빈하트.png');
+			}else if(cnt==-11){
+				alert("세션이 없습니다.");
+				location.href="/login.do";
+			}else{
+				$(".heart").attr('src', '/sys_img/꽉찬하트.png');
+			}
+		})
+	  .catch(error => console.error("Error:", error));
+}
+
+function jjim(){
+	const r_code = $("[name='r_code']").val();
+	fetch("/jjim?r_code="+r_code)
+	  .then(response => response.json())
+	  .then(data => {
+			const cnt = data.cnt;
+			const thisObj = $(".jjim");
+			if(cnt==1){
+				thisObj.css({"background-color":"#4caf50" , "color":"white"});
+			}else if(cnt==-11){
+				alert("세션이 없습니다.");
+				location.href="/login.do";
+			}else{
+				thisObj.css({"background-color":"white" , "color":"#4caf50"});
+			}
+		})
+	  .catch(error => console.error("Error:", error));
 }
 </script>
 </head>
@@ -229,6 +267,14 @@ async function heartChange(){
 		</c:when>
 		<c:when test="${requestScope.cnt==1}">
 			<img class="heart" src="/sys_img/꽉찬하트.png" onclick="heartChange()">
+		</c:when>
+	</c:choose>
+	<c:choose>
+		<c:when test="${requestScope.cnt==0}">
+			<a style="background-color:white; color:#4caf50;" class="jjim" onclick="jjim()">찜하기</a>
+		</c:when>
+		<c:when test="${requestScope.cnt==1}">
+			<a style="background-color:#4caf50; color:white;" class="jjim" onclick="jjim()">찜하기</a>
 		</c:when>
 	</c:choose>
 </div>

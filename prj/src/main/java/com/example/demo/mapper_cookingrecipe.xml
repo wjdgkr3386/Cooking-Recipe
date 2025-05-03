@@ -201,8 +201,6 @@
 		update recipe_img set img=#{img} where r_code=#{r_code}
 	</update>
 	
-	
-	
 	<select id="checkHeart" parameterType="java.util.HashMap" resultType="int">
 		select count(*) from recipe_heart where r_code=#{r_code} and uuid=(select uuid from user_info where mid=#{mid})
 	</select>
@@ -215,4 +213,17 @@
 		insert into recipe_heart (uuid, r_code) values ((select uuid from user_info where mid=#{mid}), #{r_code})
 	</insert>
 	
+	
+	
+	<select id="checkJjim" parameterType="java.util.HashMap" resultType="int">
+		select count(*) from recipe_jjim where r_code=#{r_code} and uuid=(select uuid from user_info where mid=#{mid})
+	</select>
+	
+	<update id="deleteJjim" parameterType="java.util.HashMap">
+		delete from recipe_jjim where r_code=#{r_code} and uuid=(select uuid from user_info where mid=#{mid})
+	</update>
+	
+	<insert id="insertJjim" parameterType="java.util.HashMap">
+		insert into recipe_jjim (uuid, r_code) values ((select uuid from user_info where mid=#{mid}), #{r_code})
+	</insert>
 </mapper>
