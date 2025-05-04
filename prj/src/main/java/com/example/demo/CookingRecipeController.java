@@ -440,6 +440,14 @@ public class CookingRecipeController {
 		mav.setViewName("notice.jsp");
 		return mav;
 	}
+
+	@RequestMapping(value = "/noticeWrite.do")
+	public ModelAndView noticeWrite(
+	) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("noticeWrite.jsp");
+		return mav;
+	}
 	
 	
 	
