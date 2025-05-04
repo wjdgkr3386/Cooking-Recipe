@@ -74,3 +74,10 @@ create table recipe_jjim(
     foreign key(uuid) references user_info(uuid),
     foreign key(r_code) references recipe(r_code)
 );
+
+create table notice(
+    id              number              primary key,
+    title           varchar2(100)       not null,
+    content         varchar2(4000)      not null,
+    create_time     date                default sysdate
+);
