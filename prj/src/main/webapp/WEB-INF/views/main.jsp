@@ -331,6 +331,7 @@
 	</div>
 <!-- 전송을 위한 form -->
 <form name="submitForm">
+	<input type="hidden" name="viewName" value="main.jsp">
 </form>
 </body>
 </html>

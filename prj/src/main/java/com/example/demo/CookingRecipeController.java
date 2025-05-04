@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -372,9 +373,20 @@ public class CookingRecipeController {
 
 	@RequestMapping(value = "/jjimList")
 	public ModelAndView jjimList(
-		HttpSession session
+		String viewName,
+		HttpSession session,
+		HttpServletResponse response
 	) {
 		ModelAndView mav = new ModelAndView();
+		if(viewName==null) {
+			try {
+				response.sendRedirect("/error.do");
+				return null;
+			}catch(Exception e) {
+				System.out.println(e);
+				return null;
+			}
+		}
 		String mid = (String) session.getAttribute("mid");
 		List<Map<String, Object>> recipeList = new ArrayList<Map<String,Object>>();
 		try {
@@ -387,7 +399,7 @@ public class CookingRecipeController {
 		}
 		mav.addObject("recipeList", recipeList);
 		mav.addObject("recipeListSize", recipeList.size());
-		mav.setViewName("main.jsp");
+		mav.setViewName(viewName);
 		return mav;
 	}
 
@@ -406,11 +418,19 @@ public class CookingRecipeController {
 		}catch (Exception e) {
 			System.out.println(e);
 		}
+		mav.addObject("mid", mid);
 		mav.addObject("recipeList", recipeList);
 		mav.addObject("recipeListSize", recipeList.size());
 		mav.setViewName("myPage.jsp");
 		return mav;
 	}
-	
+
+	@RequestMapping(value = "/error.do")
+	public ModelAndView error(
+	) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error.jsp");
+		return mav;
+	}
 	
 }

@@ -364,7 +364,8 @@
     		return;
     	}else if(title.length>25){
     		alert("제목은 25글자 이하로 써주세요.");
-    		$("[name='title']")[0].scrollIntoView({ behavior: 'smooth' });
+    		$("[name='title']").focus();
+    		return;
     	}
     	if(content.trim()===""){
     		alert("내용을 입력해주세요.");
