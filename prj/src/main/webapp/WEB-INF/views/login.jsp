@@ -7,11 +7,16 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 <style>
+	.inputField{
+		width: 240px;
+		height: 90px;
+		margin: 10 auto 0;
+	}
 	.mid , .pwd{
 		width: 240px;
 		height: 40px;
 		padding: 5px;
-		margin: 10 0 0 0px;
+		margin-top: 5px;
 	}
 	
 	.btn{
@@ -20,6 +25,19 @@
 		margin: 0 15px;
 	}
 	
+	.findAccount-div{
+		width: 240px;
+		margin: 0 auto;
+		text-align:right;
+	}
+	.findAccount:hover{
+		color:blue;
+		cursor: pointer;
+	}
+	.btn-div{
+		width: 240px;
+		margin: 0 auto;
+	}
 </style>
 <script>
 //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -51,20 +69,25 @@ function login(){
 	     }
 	);
 }
+
+//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 </script>
 </head>
 <body>
-<center>
 	<h1 style="margin-top:50px; text-align:center; cursor:pointer;" onclick="location.href='/cookingRecipe.do'">Cooking Recipe</h1>
 	<br>
 	<form name="loginForm">
+	<div class="inputField">
 		<input type="text" class="mid" name="mid" placeholder="아이디"><br>
-		<input type="password" class="pwd" name="pwd" placeholder="패스워드"><br><br>
+		<input type="password" class="pwd" name="pwd" placeholder="패스워드">
+	</div>
+	<div class="findAccount-div">
+		<a class="findAccount" onclick="location.href='/findAccount.do'">계정 찾기</a>
+	</div>
 	</form>
-	
-	<input type="button" class="btn" value="확인" onclick="login()">
-	<input type="button" class="btn" value="회원가입" onclick="location.href = '/signUp.do';">
-	
-</center>
+	<div class="btn-div">
+		<input type="button" class="btn" value="확인" onclick="login()">
+		<input type="button" class="btn" value="회원가입" onclick="location.href = '/signUp.do';">
+	</div>
 </body>
 </html>

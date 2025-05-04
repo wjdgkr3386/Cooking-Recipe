@@ -39,4 +39,12 @@
 	<select id="login" parameterType="com.example.demo.LoginDTO" resultType="int">
 		select count(*) from user_info where mid=#{mid} and pwd=#{pwd}
 	</select>
+	
+	<select id="findMid" parameterType="com.example.demo.LoginDTO" resultType="String">
+		select mid from user_info where email=#{email}
+	</select>
+	
+	<select id="findPwd" parameterType="com.example.demo.LoginDTO" resultType="String">
+		select pwd from user_info where email=#{email} and mid=#{mid}
+	</select>
 </mapper>

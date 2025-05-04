@@ -14,7 +14,8 @@ public class LoginController {
 	LoginService loginService;
 	@Autowired
 	LoginDAO loginDAO;
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value="/login.do")
 	public ModelAndView login(
 		HttpSession session
@@ -26,7 +27,8 @@ public class LoginController {
 		mav.setViewName("login.jsp");
 		return mav;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value="/loginProc.do")
 	public int loginProc(
 		HttpSession session,
@@ -38,7 +40,8 @@ public class LoginController {
 		}
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value="/signUp.do")
 	public ModelAndView signUp(
 	) {
@@ -47,6 +50,7 @@ public class LoginController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value="/signUpProc.do")
 	public int signUpProc(
 		LoginDTO loginDTO
@@ -67,16 +71,42 @@ public class LoginController {
 		}catch(Exception e) {
 			System.out.println(e);
 		}
-		
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value="/logout.do")
 	public int logout(
 		HttpSession session
 	) {
 		session.removeAttribute("mid");
 		return 1;
+	}
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	@RequestMapping(value="/findAccount.do")
+	public ModelAndView findAccountProc(
+	) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("findAccount.jsp");
+		return mav;
+	}
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	@RequestMapping(value="/findMidProc.do")
+	public String findMidProc(
+		LoginDTO loginDTO
+	) {
+		String mid = loginDAO.findMid(loginDTO);
+		return mid;
+	}
+	
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	@RequestMapping(value="/findPwdProc.do")
+	public String findPwdProc(
+		LoginDTO loginDTO
+	) {
+		String pwd = loginDAO.findPwd(loginDTO);
+		return pwd;
 	}
 	
 	

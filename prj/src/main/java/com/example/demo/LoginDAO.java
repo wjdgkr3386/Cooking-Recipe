@@ -12,4 +12,8 @@ public interface LoginDAO {
 	int insertUserInfo(LoginDTO loginDTO);
 	
 	int login(LoginDTO loginDTO);
+	
+	String findMid(LoginDTO loginDTO);
+	
+	String findPwd(LoginDTO loginDTO);
 }
