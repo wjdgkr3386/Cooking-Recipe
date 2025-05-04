@@ -27,7 +27,8 @@ public class CookingRecipeController {
 	NoticeService noticeService;
 	@Autowired
 	NoticeDAO noticeDAO;
-
+	
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/cookingRecipe.do")
 	public ModelAndView cookingRecipe(
 		HttpSession session
@@ -59,6 +60,7 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/search.do")
 	public ModelAndView search(
 		CookingRecipeDTO cookingRecipeDTO,
@@ -88,7 +90,8 @@ public class CookingRecipeController {
 		mav.setViewName("main.jsp");
 		return mav;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/write.do")
 	public ModelAndView write(
 	) {
@@ -97,6 +100,7 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/loadWrite.do")
 	public ModelAndView updateWrite(
 		@RequestParam(value = "content", required = false) String content,
@@ -116,6 +120,7 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/writeInsertProc.do")
 	public int writeInsertProc(
 		CookingRecipeDTO cookingRecipeDTO,
@@ -139,6 +144,7 @@ public class CookingRecipeController {
 		return cnt;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/writeTemporarySaveProc.do")
 	public int writeTemporarySaveProc(
 		CookingRecipeDTO cookingRecipeDTO,
@@ -159,6 +165,7 @@ public class CookingRecipeController {
 		return cnt;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/write/saved.do")
 	public ModelAndView saved(
 			HttpSession session,
@@ -173,11 +180,8 @@ public class CookingRecipeController {
 
 		List<Map<String, Object>> tempRecipe = cookingRecipeDAO.getTempRecipe(mid);
 		for(Map<String,Object> map: tempRecipe) {
-			
 			Clob clobContent = (Clob) map.get("CONTENT");
-			
 			String content="";
-			
 			try {
 				if(clobContent!=null) {
 					content = Util.convertClobToString(clobContent);
@@ -188,7 +192,6 @@ public class CookingRecipeController {
 			}catch(Exception e) {
 				System.out.println(e);
 			}
-
 			map.put("CONTENT", content);
 		}
 
@@ -197,6 +200,7 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/tempDeleteProc.do")
 	public int tempDeleteProc(
 		CookingRecipeDTO cookingRecipeDTO,
@@ -213,10 +217,32 @@ public class CookingRecipeController {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	@RequestMapping(value = "/writeUpdateProc.do")
+	public int writeUpdateProc(
+		CookingRecipeDTO cookingRecipeDTO,
+		HttpSession session
+	) {
+		String mid = (String) session.getAttribute("mid");
+		if (mid == null) {
+			return -11;
+		}
+
+		int cnt = 0;
+		try {
+			cnt = cookingRecipeService.updatePost(cookingRecipeDTO);
+		} catch (RuntimeException r) {
+			cnt = Integer.parseInt(r.getMessage());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		return cnt;
+	}
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping("/post/{r_code}")
 	public ModelAndView post(
 			@PathVariable("r_code") String r_code,
@@ -248,7 +274,8 @@ public class CookingRecipeController {
 		mav.setViewName("post.jsp");
 		return mav;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping("/post/{r_code}/modify")
 	public ModelAndView modify(
 			@PathVariable("r_code") String r_code,
@@ -278,6 +305,7 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/deletePostProc.do")
 	public int deletePostProc(
 		CookingRecipeDTO cookingRecipeDTO,
@@ -300,27 +328,7 @@ public class CookingRecipeController {
 		return cnt;
 	}
 
-	@RequestMapping(value = "/writeUpdateProc.do")
-	public int writeUpdateProc(
-		CookingRecipeDTO cookingRecipeDTO,
-		HttpSession session
-	) {
-		String mid = (String) session.getAttribute("mid");
-		if (mid == null) {
-			return -11;
-		}
-
-		int cnt = 0;
-		try {
-			cnt = cookingRecipeService.updatePost(cookingRecipeDTO);
-		} catch (RuntimeException r) {
-			cnt = Integer.parseInt(r.getMessage());
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return cnt;
-	}
-
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/changeHeart.do")
 	public Map<String,Object> changeHeart(
 		HttpSession session,
@@ -348,6 +356,7 @@ public class CookingRecipeController {
 		return response;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/jjim")
 	public Map<String,Object> jjim(
 		HttpSession session,
@@ -375,6 +384,7 @@ public class CookingRecipeController {
 		return response;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/jjimList")
 	public ModelAndView jjimList(
 		String viewName,
@@ -407,6 +417,7 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/myPage.do")
 	public ModelAndView myPage(
 		HttpSession session
@@ -429,14 +440,7 @@ public class CookingRecipeController {
 		return mav;
 	}
 
-	@RequestMapping(value = "/error.do")
-	public ModelAndView error(
-	) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("error.jsp");
-		return mav;
-	}
-
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/notice.do")
 	public ModelAndView notice(
 		HttpSession session,
@@ -470,19 +474,28 @@ public class CookingRecipeController {
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/noticeWrite.do")
 	public ModelAndView noticeWrite(
-			HttpSession session
+			HttpSession session,
+			HttpServletResponse response
 	) {
 		String mid = (String)session.getAttribute("mid");
-		if(mid!="xyz") {
-			
+		if(!mid.equals("xyz")) {
+			try {
+				response.sendRedirect("/error.do");
+				return null;
+			}catch(Exception e) {
+				System.out.println("관리자가 아닙니다.");
+				return null;
+			}
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("noticeWrite.jsp");
 		return mav;
 	}
 
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping(value = "/noticeSaveProc.do")
 	public int noticeSaveProc(
 		NoticeDTO noticeDTO,
@@ -507,7 +520,8 @@ public class CookingRecipeController {
 		}
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	@RequestMapping("/notice/{id}")
 	public ModelAndView noticePost(
 			@PathVariable("id") int id,
@@ -518,6 +532,15 @@ public class CookingRecipeController {
 		noticeMap = Util.convertAngleBracketsMap(noticeMap, "<br>");
 		mav.addObject("noticeMap", noticeMap);
 		mav.setViewName("noticePost.jsp");
+		return mav;
+	}
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+	@RequestMapping(value = "/error.do")
+	public ModelAndView error(
+	) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("error.jsp");
 		return mav;
 	}
 }

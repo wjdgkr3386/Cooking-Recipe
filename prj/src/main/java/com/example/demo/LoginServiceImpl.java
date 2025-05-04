@@ -10,7 +10,8 @@ public class LoginServiceImpl implements LoginService {
 
 	@Autowired
 	LoginDAO loginDAO;
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int insertUserInfo(LoginDTO loginDTO) {
 		return loginDAO.insertUserInfo(loginDTO);
 	}

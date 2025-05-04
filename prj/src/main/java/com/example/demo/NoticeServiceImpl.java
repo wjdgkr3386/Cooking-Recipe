@@ -10,7 +10,8 @@ public class NoticeServiceImpl implements NoticeService{
 
 	@Autowired
 	NoticeDAO noticeDAO;
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int insertNotice(NoticeDTO noticeDTO) {
 		int cnt = 0;
 		cnt = noticeDAO.insertNotice(noticeDTO);

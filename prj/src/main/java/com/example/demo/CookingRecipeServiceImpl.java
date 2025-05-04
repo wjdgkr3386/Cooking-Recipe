@@ -13,7 +13,8 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 
 	@Autowired
 	CookingRecipeDAO cookingRecipeDAO;
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int insertRecipe(CookingRecipeDTO cookingRecipeDTO) {
 		cookingRecipeDAO.deleteTemp_recipe_ingredient(cookingRecipeDTO);
 		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
@@ -46,7 +47,8 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		}
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int tempSave(CookingRecipeDTO cookingRecipeDTO) {
 		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
 		cookingRecipeDAO.deleteTemp_recipe(cookingRecipeDTO);
@@ -57,7 +59,8 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		}
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int deleteTemp(CookingRecipeDTO cookingRecipeDTO) {
 		int cnt=0;
 		cookingRecipeDAO.deleteTemp_recipe_content(cookingRecipeDTO);
@@ -65,7 +68,8 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int deletePost(CookingRecipeDTO cookingRecipeDTO) {
 		int cnt=0;
 		if(cookingRecipeDAO.deleteRecipe_content(cookingRecipeDTO)>0) {
@@ -78,7 +82,8 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		if(cnt==0) { throw new RuntimeException("0"); }
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int updatePost(CookingRecipeDTO cookingRecipeDTO) {
 		cookingRecipeDAO.deleteRecipe_ingredient(cookingRecipeDTO);
 		cookingRecipeDAO.updateTitle(cookingRecipeDTO);
@@ -94,7 +99,8 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		
 		return 1;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int changeHeart(Map<String,Object> map) {
 		int cnt = 0;
 		cnt = cookingRecipeDAO.checkHeart(map);
@@ -105,7 +111,8 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		}
 		return cnt;
 	}
-	
+
+	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 	public int jjim(Map<String, Object> map) {
 		int cnt = 0;
 		cnt = cookingRecipeDAO.checkJjim(map);
