@@ -233,9 +233,9 @@
 	<div class="menubar">
 		<span class="item recipeListBtn" style="text-decoration: underline;" onclick="recipeList()">레시피 목록</span>
 		<span class="item jjimListBtn" onclick="jjimList()">찜 목록</span>
-		<span class="item"onclick="goWrite()">레시피 작성</span>
+		<span class="item" onclick="goWrite()">레시피 작성</span>
 		<span class="item" onclick="location.href='/myPage.do'">마이페이지</span>
-		<span class="item">공지사항</span>
+		<span class="item" onclick="location.href='/notice.do'">공지사항</span>
 	</div>
 	<div style="width:2000px; height:800px; position: relative; margin: 0 auto;">
 		<div class="recipe_container">

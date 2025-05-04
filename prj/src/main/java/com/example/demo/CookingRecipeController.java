@@ -432,5 +432,16 @@ public class CookingRecipeController {
 		mav.setViewName("error.jsp");
 		return mav;
 	}
+
+	@RequestMapping(value = "/notice.do")
+	public ModelAndView notice(
+	) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("notice.jsp");
+		return mav;
+	}
+	
+	
+	
 	
 }
