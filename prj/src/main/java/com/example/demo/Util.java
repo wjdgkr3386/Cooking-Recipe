@@ -10,7 +10,100 @@ import java.util.Base64;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Util {
+	
+    //검색 페이지 제어
+    public static void searchUtil(int searchResultCount, NoticeDTO noticeDTO){
+        if(searchResultCount==0) {
+            return;
+        }
+        
+        try {
+            int rowCnt = 10; //한 페이지 안에 행의 개수
+            int selectPageNo = 0; //선택한 페이지 번호
+            int begin_rowNo = 0; //시작할 행의 번호
+            int end_rowNo = 0;     //끝날 행의 번호
+            
+            int last_pageNo = 0; //마지막 페이지 번호
+            int remainder = 0;   //last_pageNo를 구하기 위한 변수
+            int pageNoCntPerPage= 10; //한번에 보여줄 페이지의 갯수
+            
+            last_pageNo = searchResultCount/rowCnt;
+            remainder = searchResultCount%rowCnt;
+            if(remainder>0) {
+                last_pageNo++;
+            }
+            
+            selectPageNo = noticeDTO.getSelectPageNo();
+            if(selectPageNo<=0) {
+                selectPageNo=1;
+            }
+            
+            begin_rowNo = ((selectPageNo-1)*rowCnt)+1;
+            end_rowNo = selectPageNo*rowCnt;
+            if( end_rowNo>searchResultCount ) {
+                end_rowNo = searchResultCount;
+            }
+            
+            int begin_pageNo = selectPageNo-(pageNoCntPerPage/2);
+            if(begin_pageNo<1) {
+                begin_pageNo = 1;
+            }
 
+            int end_pageNo = begin_pageNo + pageNoCntPerPage - 1;
+            if(end_pageNo>last_pageNo) {
+                end_pageNo=last_pageNo;
+            }
+            
+            if(selectPageNo+(pageNoCntPerPage/2)>last_pageNo) {
+                begin_pageNo = begin_pageNo - (selectPageNo+(pageNoCntPerPage/2)-last_pageNo)+1;
+                if(begin_pageNo<1) {
+                    begin_pageNo = 1;
+                }
+            }
+
+            noticeDTO.setLast_pageNo(last_pageNo);
+            noticeDTO.setRowCnt(rowCnt);
+            noticeDTO.setSelectPageNo(selectPageNo);
+            noticeDTO.setBegin_pageNo(begin_pageNo);
+            noticeDTO.setEnd_pageNo(end_pageNo);
+            noticeDTO.setBegin_rowNo(begin_rowNo);
+            noticeDTO.setEnd_rowNo(end_rowNo);
+        }catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//파일 불러와 파일이름을 DTO에 저장
 	public static void file_nameInput( CookingRecipeDTO cookingRecipeDTO ) {
 		MultipartFile img = cookingRecipeDTO.getFoodImg();

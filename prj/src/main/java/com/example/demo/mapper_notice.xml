@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.NoticeDAO">
+
+	<insert id="insertNotice" parameterType="com.example.demo.NoticeDTO">
+		insert into notice (
+			id,
+			title,
+			content
+		) values (
+			(select (nvl(max(id),0)+1) from notice),
+			#{title},
+			#{content}
+		)
+	</insert>
+	
+	<select id="getNotice" parameterType="com.example.demo.NoticeDTO" resultType="java.util.HashMap">
+		select * from ( select  rownum RNUM, zxcvb.* from  (
+		
+			select
+				id as "ID",
+				title as "TITLE",
+				content as "CONTENT",
+				to_char(create_time,'YYYY-MM-DD HH24:MI') as "CREATE_TIME"
+			from
+				notice
+			order by
+				id desc
+				
+	    <![CDATA[
+	        ) zxcvb) where  RNUM  >= ${begin_rowNo}  and RNUM <= ${end_rowNo}
+	    ]]>
+	</select>
+	
+	<select id="getNoticeCnt" resultType="int">
+		select count(*) from notice
+	</select>
+</mapper>

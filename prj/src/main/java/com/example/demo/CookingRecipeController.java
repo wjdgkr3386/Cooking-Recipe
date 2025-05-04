@@ -23,6 +23,10 @@ public class CookingRecipeController {
 	CookingRecipeService cookingRecipeService;
 	@Autowired
 	CookingRecipeDAO cookingRecipeDAO;
+	@Autowired
+	NoticeService noticeService;
+	@Autowired
+	NoticeDAO noticeDAO;
 
 	@RequestMapping(value = "/cookingRecipe.do")
 	public ModelAndView cookingRecipe(
@@ -435,21 +439,82 @@ public class CookingRecipeController {
 
 	@RequestMapping(value = "/notice.do")
 	public ModelAndView notice(
+		HttpSession session,
+		NoticeDTO noticeDTO
 	) {
+		String mid = (String) session.getAttribute("mid");
 		ModelAndView mav = new ModelAndView();
+		List<Map<String, Object>> searchList = new ArrayList<Map<String, Object>>();
+
+		//검색 결과의 갯수
+		int searchResultCount = noticeDAO.getNoticeCnt();
+		int searchCount=0;
+		if(searchResultCount!=0) {
+		    Util.searchUtil(searchResultCount, noticeDTO);
+		    searchList = noticeDAO.getNotice(noticeDTO);
+		    searchCount = searchList.size();
+		}
+		mav.addObject("searchList", searchList);
+		mav.addObject("searchCount", searchCount);
+		mav.addObject("searchResultCount", searchResultCount);
+		mav.addObject("last_pageNo", noticeDTO.getLast_pageNo());
+		mav.addObject("selectPageNo", noticeDTO.getSelectPageNo());
+		mav.addObject("begin_pageNo", noticeDTO.getBegin_pageNo());
+		mav.addObject("end_pageNo", noticeDTO.getEnd_pageNo());
+		mav.addObject("rowCnt", noticeDTO.getRowCnt());
+		mav.addObject("begin_rowNo", noticeDTO.getBegin_rowNo());
+		mav.addObject("end_rowNo", noticeDTO.getEnd_rowNo());
+		
+		mav.addObject("mid", mid);
 		mav.setViewName("notice.jsp");
 		return mav;
 	}
 
 	@RequestMapping(value = "/noticeWrite.do")
 	public ModelAndView noticeWrite(
+			HttpSession session
 	) {
+		String mid = (String)session.getAttribute("mid");
+		if(mid!="xyz") {
+			
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("noticeWrite.jsp");
 		return mav;
 	}
+
+	@RequestMapping(value = "/noticeSaveProc.do")
+	public int noticeSaveProc(
+		NoticeDTO noticeDTO,
+		HttpSession session,
+		HttpServletResponse response
+	) {
+		String mid = (String) session.getAttribute("mid");
+		if(!mid.equals("xyz")) {
+			try {
+				response.sendRedirect("/error.do");
+				return 0;
+			}catch(Exception e) {
+				System.out.println("관리자가 아닙니다.");
+				return 0;
+			}
+		}
+		int cnt=0;
+		try {
+			cnt = noticeService.insertNotice(noticeDTO);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return cnt;
+	}
 	
-	
-	
-	
+	@RequestMapping("/notice/{id}")
+	public ModelAndView noticePost(
+			@PathVariable("id") int id,
+			HttpSession session
+	) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("noticePost.jsp");
+		return mav;
+	}
 }

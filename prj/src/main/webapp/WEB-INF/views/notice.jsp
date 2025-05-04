@@ -11,42 +11,128 @@ body {
 	padding: 0;
 	overflow-x: hidden;
 }
-div{
-	border: 1px solid black;
-}
 h1{
-	margin: 30 auto 100;
+	margin: 40 auto 60;
 	text-align: center;
+}
+tr:hover{
+	background-color: #f1f1f1;
+	cursor: pointer;
 }
 .btn-div{
 	width: 1000px;
 	height: 30px;
 	margin: 0 auto;
+	padding-right: 5px;
 	text-align:right;
 	box-sizing: border-box;
 }
-.table-notice{
+.tableNotice{
 	border: 1px solid black;
 	width: 1000px;
-	height: 800px;
+	min-height: 645px;
 	margin: 0 auto;
 	padding: 10px;
 	box-sizing: border-box;
+	display: block;
+	font-size: 17px;
+	border-radius: 10px;
+	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+.tableNotice td {
+	border: 1px solid black;
+    padding: 5px;
+    height: 50px;
+}
+.page{
+    display:inline-block;
+    border-radius: 10px;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+    width:40px;
+    height:40px;
+    cursor:pointer;
+    text-align: center;
+    line-height: 40px;
+    margin: 0 3px;
+}
+.first-td{
+	width: 50px;
+    text-align: center;
+}
+.second-td{
+	width: 800px;
+}
+.third-td{
+	width: 120px;
+    text-align: center;
 }
 </style>
 <script>
-
+function pageNoClick(clickPageNo) {
+    $("[name='selectPageNo']").val(clickPageNo);
+    
+	var formObj = $("[name='pageForm']");
+	ajax(
+		"/notice.do",
+		"post",
+		formObj,
+		function (responseHtml) {
+            var obj = $(responseHtml);
+            var tempDiv = $("<div>").html(responseHtml);
+            var newTable = tempDiv.find(".tableNotice");
+            $(".tableNotice").replaceWith(newTable);
+            var pageNos = obj.find(".pageNos");
+            $(".pageNos").replaceWith(pageNos);
+		}
+	);
+}
 </script>
 </head>
 <body>
 <h1>공지사항</h1>
 <div class="btn-div">
-	<a style="cursor:pointer;" onclick="location.href='/noticeWrite.do'">게시글 작성</a>
+	<if test="${requestScope.mid == xyz}">
+		<a style="cursor:pointer;" onclick="location.href='/noticeWrite.do'">게시글 작성</a>
+	</if>
 </div>
-<table class="table-notice">
-	<tr>
-		<td>
-		<td>
-	</tr>
+<table class="tableNotice">
+	<c:forEach var="i" items="${requestScope.searchList}">
+		<tr>
+			<td class="first-td">
+				${i.ID}
+			</td>
+			<td class="second-td">
+				${i.TITLE}
+			</td>
+			<td class="third-td">
+				${i.CREATE_TIME}
+			</td>
+		</tr>
+	</c:forEach>
 </table>
+<center>
+<!-- 간격 띄우기 -->
+<div style="height: 20px;"></div>
+<div class="pageNos" style="user-select: none;">
+    <span class="page" style="width:50px;" onClick="pageNoClick(1)">처음</span>
+    <span class="page" onClick="pageNoClick(${requestScope.selectPageNo-1})">이전</span>
+    <c:forEach var="pageNo" begin="${requestScope.begin_pageNo}" end="${requestScope.end_pageNo}">
+        <c:choose>
+            <c:when test="${requestScope.selectPageNo==pageNo}">
+                <span class="page" style="font-weight:bold; color:blue;">${pageNo}</span>
+            </c:when>
+            <c:otherwise>
+                <span class="page" onClick="pageNoClick(${pageNo})">${pageNo}</span>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <span class="page" onClick="pageNoClick(${requestScope.selectPageNo+1})">다음</span>
+    <span class="page" style="width:50px;" onClick="pageNoClick(${requestScope.last_pageNo})">마지막</span>
+</div>
+<!-- 간격 띄우기 -->
+<div style="height: 50px;"></div>
+<form name="pageForm">
+	<input type="hidden" name="selectPageNo" value="1">
+</form>
+</center>
 </html>
