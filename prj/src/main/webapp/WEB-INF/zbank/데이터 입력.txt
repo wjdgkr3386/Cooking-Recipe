@@ -1,3 +1,6 @@
+insert into user_info values('7jAGd2Ddsdfkdj4dkfl','xyz', '123', 'system@naver.com');
+
+
 INSERT INTO ingredient (ingredient_code, ingredient_name) VALUES (1, '계란');
 INSERT INTO ingredient (ingredient_code, ingredient_name) VALUES (2, '김치');
 INSERT INTO ingredient (ingredient_code, ingredient_name) VALUES (3, '양파');
