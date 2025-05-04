@@ -270,7 +270,7 @@
 		</div>
 		<div class="ingredient_container">
 			<div class="search_button_div">
-				<input type="button" class="search_button" value="검색" onclick="search()">
+				<input type="button" class="search_button" value="검색" title="아아아아" onclick="search()">
 			</div>
 			
 <form name="searchForm">
