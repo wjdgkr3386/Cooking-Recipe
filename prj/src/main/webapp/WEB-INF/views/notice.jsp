@@ -86,6 +86,23 @@ function pageNoClick(clickPageNo) {
 		}
 	);
 }
+
+function goNoticePost(id){
+    // 새로운 form 엘리먼트 생성
+    var form = document.createElement("form");
+    form.method = "POST";
+    form.action = "/notice/"+id;
+
+    // 새로운 input 엘리먼트 생성
+    var input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "id";
+    input.value = id;
+
+    // form에 input 추가하고 바로 body에 추가하여 submit
+    form.appendChild(input);
+    document.body.appendChild(form).submit();
+}
 </script>
 </head>
 <body>
@@ -97,7 +114,7 @@ function pageNoClick(clickPageNo) {
 </div>
 <table class="tableNotice">
 	<c:forEach var="i" items="${requestScope.searchList}">
-		<tr>
+		<tr onclick="goNoticePost('${i.ID}')">
 			<td class="first-td">
 				${i.ID}
 			</td>

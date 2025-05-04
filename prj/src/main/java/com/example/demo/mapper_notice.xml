@@ -33,6 +33,18 @@
 	    ]]>
 	</select>
 	
+	<select id="getNoticePost" parameterType="int" resultType="java.util.HashMap">
+			select
+				id as "ID",
+				title as "TITLE",
+				content as "CONTENT",
+				to_char(create_time,'YYYY-MM-DD HH24:MI') as "CREATE_TIME"
+			from
+				notice
+			where
+				id=#{id}
+	</select>
+	
 	<select id="getNoticeCnt" resultType="int">
 		select count(*) from notice
 	</select>

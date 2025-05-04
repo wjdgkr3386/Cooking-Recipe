@@ -1,11 +1,14 @@
 package com.example.demo;
 
+import static org.assertj.core.api.Assertions.entry;
+
 import java.io.FileOutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.sql.Clob;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,35 +76,33 @@ public class Util {
         }
     }
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//맵을 받아서 안에 있는 내용 중에 < , > , <br> 을 html에서 사용할 수 있게 변환하여 저장하고 반환
+	public static Map<String, Object> convertAngleBracketsMap(Map<String, Object> convertMap, String keyword){
+		if(keyword.equals("<br>")) {
+	        for (Map.Entry<String, Object> entry : convertMap.entrySet()) {
+	            Object value = entry.getValue();
+	            if (value != null) {
+	                String sanitizedValue = value.toString()
+	                    .replaceAll("<", "&lt;")
+	                    .replaceAll(">", "&gt;")
+	                    .replaceAll("\n", "<br>");
+	                entry.setValue(sanitizedValue);
+	            }
+	        }
+		}else if(keyword.equals("\n")) {
+	        for (Map.Entry<String, Object> entry : convertMap.entrySet()) {
+	            Object value = entry.getValue();
+	            if (value != null) {
+	                String sanitizedValue = value.toString()
+	                    .replaceAll("<", "&lt;")
+	                    .replaceAll(">", "&gt;")
+	                    .replaceAll("<br>", "\n");
+	                entry.setValue(sanitizedValue);
+	            }
+	        }
+		}
+		return convertMap;
+	}
 	
 	
 	//파일 불러와 파일이름을 DTO에 저장

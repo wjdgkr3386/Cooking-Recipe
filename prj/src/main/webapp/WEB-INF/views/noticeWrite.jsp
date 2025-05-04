@@ -10,9 +10,6 @@
 		text-align: center;
 		margin: 30px;
 	}
-/* 	div{
-		border: 1px solid black;
-	} */
 	.select-div{
 		width: 1000px;
 		height: 50px;

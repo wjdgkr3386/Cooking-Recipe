@@ -514,6 +514,9 @@ public class CookingRecipeController {
 			HttpSession session
 	) {
 		ModelAndView mav = new ModelAndView();
+		Map<String, Object> noticeMap = noticeDAO.getNoticePost(id);
+		noticeMap = Util.convertAngleBracketsMap(noticeMap, "<br>");
+		mav.addObject("noticeMap", noticeMap);
 		mav.setViewName("noticePost.jsp");
 		return mav;
 	}
