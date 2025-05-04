@@ -111,9 +111,9 @@ function goNoticePost(id){
 <body>
 <h1>공지사항</h1>
 <div class="btn-div">
-	<if test="${requestScope.mid == xyz}">
+	<c:if test="${requestScope.mid == xyz}">
 		<a style="cursor:pointer;" onclick="location.href='/noticeWrite.do'">게시글 작성</a>
-	</if>
+	</c:if>
 </div>
 <table class="tableNotice">
 	<c:forEach var="i" items="${requestScope.searchList}">
