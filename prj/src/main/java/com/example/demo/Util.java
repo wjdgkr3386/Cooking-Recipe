@@ -1,7 +1,5 @@
 package com.example.demo;
 
-import static org.assertj.core.api.Assertions.entry;
-
 import java.io.FileOutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
