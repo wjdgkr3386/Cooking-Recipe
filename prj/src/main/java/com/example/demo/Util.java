@@ -25,18 +25,15 @@ public class Util {
             int end_rowNo = 0;     //끝날 행의 번호
             
             int last_pageNo = 0; //마지막 페이지 번호
-            int remainder = 0;   //last_pageNo를 구하기 위한 변수
             int pageNoCntPerPage= 10; //한번에 보여줄 페이지의 갯수
             
-            last_pageNo = searchResultCount/rowCnt;
-            remainder = searchResultCount%rowCnt;
-            if(remainder>0) {
-                last_pageNo++;
-            }
+            last_pageNo = (searchResultCount + rowCnt - 1) / rowCnt;
             
             selectPageNo = noticeDTO.getSelectPageNo();
             if(selectPageNo<=0) {
                 selectPageNo=1;
+            }else if(selectPageNo>last_pageNo) {
+            	selectPageNo=last_pageNo;
             }
             
             begin_rowNo = ((selectPageNo-1)*rowCnt)+1;
@@ -61,6 +58,7 @@ public class Util {
                     begin_pageNo = 1;
                 }
             }
+            
 
             noticeDTO.setLast_pageNo(last_pageNo);
             noticeDTO.setRowCnt(rowCnt);

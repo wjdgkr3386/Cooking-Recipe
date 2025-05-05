@@ -152,7 +152,7 @@ function goNoticePost(id){
 <!-- 간격 띄우기 -->
 <div style="height: 50px;"></div>
 <form name="pageForm">
-	<input type="hidden" name="selectPageNo" value="1">
+	<input type="hidden" name="selectPageNo" value="${selectPageNo}">
 </form>
 </center>
 </html>
