@@ -111,7 +111,7 @@ function goNoticePost(id){
 <body>
 <h1>공지사항</h1>
 <div class="btn-div">
-	<c:if test="${requestScope.mid == xyz}">
+	<c:if test="${requestScope.mid == 'xyz'}">
 		<a style="cursor:pointer;" onclick="location.href='/noticeWrite.do'">게시글 작성</a>
 	</c:if>
 </div>
