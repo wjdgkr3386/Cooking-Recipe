@@ -40,7 +40,7 @@
 				INGREDIENT
 			from (
 				<foreach item="i" collection="ingredient" separator=" UNION ">
-                    select ${i} as "INGREDIENT" from dual
+                    select #{i} as "INGREDIENT" from dual
                 </foreach>
             )
 		)

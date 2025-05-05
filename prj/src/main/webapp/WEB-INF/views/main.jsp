@@ -107,6 +107,15 @@
 		cursor: pointer;
 		font-size: 20px;
 	}
+	input[type="checkbox"] {
+	  width: 20px;
+	  height: 20px;
+	  accent-color: green; /* 체크 표시 색상 */
+	  background-color: green; /* 배경 색상 */
+	  border-radius: 4px; /* 테두리 둥글게 */
+	  margin-right: 8px; /* 체크박스와 텍스트 간격 */
+	  vertical-align: middle; /* 체크박스와 텍스트의 높이를 같게 */
+	}
 </style>
 <script>
 
@@ -281,54 +290,78 @@
 			
 <form name="searchForm">
 			<div class="ingredient_checkbox">
-				<label><input type="checkbox" name="ingredient" value="1">계란</label>
-				<label><input type="checkbox" name="ingredient" value="2">김치</label>
-				<label><input type="checkbox" name="ingredient" value="3">양파</label>
-				<label><input type="checkbox" name="ingredient" value="4">감자</label>
-				<label><input type="checkbox" name="ingredient" value="5">당근</label>
-				<label><input type="checkbox" name="ingredient" value="6">마늘</label>
-				<label><input type="checkbox" name="ingredient" value="7">대파</label>
-				<label><input type="checkbox" name="ingredient" value="8">두부</label>
-				<label><input type="checkbox" name="ingredient" value="9">우유</label>
-				<label><input type="checkbox" name="ingredient" value="10">밥</label>
-				<label><input type="checkbox" name="ingredient" value="11">라면</label>
-				<label><input type="checkbox" name="ingredient" value="12">국수</label>
-				<label><input type="checkbox" name="ingredient" value="13">식빵</label>
-				<label><input type="checkbox" name="ingredient" value="14">떡</label>
-				<label><input type="checkbox" name="ingredient" value="15">햄</label>
-				<label><input type="checkbox" name="ingredient" value="16">참치</label>
-				<label><input type="checkbox" name="ingredient" value="17">소세지</label>
-				<label><input type="checkbox" name="ingredient" value="18">만두</label>
-				<label><input type="checkbox" name="ingredient" value="19">버터</label>
-				<label><input type="checkbox" name="ingredient" value="20">치즈</label>
-				<label><input type="checkbox" name="ingredient" value="21">김</label>
-				<label><input type="checkbox" name="ingredient" value="22">멸치</label>
-				<label><input type="checkbox" name="ingredient" value="23">다시마</label>
-				<label><input type="checkbox" name="ingredient" value="24">고추장</label>
-				<label><input type="checkbox" name="ingredient" value="25">된장</label>
-				<label><input type="checkbox" name="ingredient" value="26">간장</label>
-				<label><input type="checkbox" name="ingredient" value="27">설탕</label>
-				<label><input type="checkbox" name="ingredient" value="28">소금</label>
-				<label><input type="checkbox" name="ingredient" value="29">후추</label>
-				<label><input type="checkbox" name="ingredient" value="30">참기름</label>
-				<label><input type="checkbox" name="ingredient" value="31">들기름</label>
-				<label><input type="checkbox" name="ingredient" value="32">식초</label>
-				<label><input type="checkbox" name="ingredient" value="33">케찹</label>
-				<label><input type="checkbox" name="ingredient" value="34">마요네즈</label>
-				<label><input type="checkbox" name="ingredient" value="35">카레가루</label>
-				<label><input type="checkbox" name="ingredient" value="36">콩나물</label>
-				<label><input type="checkbox" name="ingredient" value="37">부추</label>
-				<label><input type="checkbox" name="ingredient" value="38">호박</label>
-				<label><input type="checkbox" name="ingredient" value="39">애호박</label>
-				<label><input type="checkbox" name="ingredient" value="40">오이</label>
-				<label><input type="checkbox" name="ingredient" value="41">양배추</label>
-				<label><input type="checkbox" name="ingredient" value="42">배추</label>
-				<label><input type="checkbox" name="ingredient" value="43">고추</label>
-				<label><input type="checkbox" name="ingredient" value="44">고춧가루</label>
-				<label><input type="checkbox" name="ingredient" value="45">돼지고기</label>
-				<label><input type="checkbox" name="ingredient" value="46">소고기</label>
-				<label><input type="checkbox" name="ingredient" value="47">닭고기</label>
-				<label><input type="checkbox" name="ingredient" value="48">생선</label>
+			<label><input type="checkbox" name="ingredient" value="1">양파</label>
+			<label><input type="checkbox" name="ingredient" value="2">감자</label>
+			<label><input type="checkbox" name="ingredient" value="3">당근</label>
+			<label><input type="checkbox" name="ingredient" value="4">마늘</label>
+			<label><input type="checkbox" name="ingredient" value="5">대파</label>
+			<label><input type="checkbox" name="ingredient" value="6">쪽파</label>
+			<label><input type="checkbox" name="ingredient" value="7">부추</label>
+			<label><input type="checkbox" name="ingredient" value="8">호박</label>
+			<label><input type="checkbox" name="ingredient" value="9">애호박</label>
+			<label><input type="checkbox" name="ingredient" value="10">오이</label>
+			<label><input type="checkbox" name="ingredient" value="11">양배추</label>
+			<label><input type="checkbox" name="ingredient" value="12">배추</label>
+			<label><input type="checkbox" name="ingredient" value="13">콩나물</label>
+			<label><input type="checkbox" name="ingredient" value="14">브로콜리</label>
+			<label><input type="checkbox" name="ingredient" value="15">파프리카</label>
+			<label><input type="checkbox" name="ingredient" value="16">방울토마토</label>
+			<label><input type="checkbox" name="ingredient" value="17">고추</label>
+			<label><input type="checkbox" name="ingredient" value="18">깻잎</label>
+			<label><input type="checkbox" name="ingredient" value="19">무</label>
+			<label><input type="checkbox" name="ingredient" value="20">버섯</label>
+			
+			<label><input type="checkbox" name="ingredient" value="21">돼지고기</label>
+			<label><input type="checkbox" name="ingredient" value="22">소고기</label>
+			<label><input type="checkbox" name="ingredient" value="23">닭고기</label>
+			<label><input type="checkbox" name="ingredient" value="24">생선</label>
+			<label><input type="checkbox" name="ingredient" value="25">새우</label>
+			
+			<label><input type="checkbox" name="ingredient" value="26">계란</label>
+			<label><input type="checkbox" name="ingredient" value="27">두부</label>
+			<label><input type="checkbox" name="ingredient" value="28">우유</label>
+			<label><input type="checkbox" name="ingredient" value="29">치즈</label>
+			<label><input type="checkbox" name="ingredient" value="30">참치</label>
+			
+			<label><input type="checkbox" name="ingredient" value="31">밥</label>
+			<label><input type="checkbox" name="ingredient" value="32">라면</label>
+			<label><input type="checkbox" name="ingredient" value="33">국수</label>
+			<label><input type="checkbox" name="ingredient" value="34">식빵</label>
+			<label><input type="checkbox" name="ingredient" value="35">떡</label>
+			<label><input type="checkbox" name="ingredient" value="36">옥수수</label>
+			
+			<label><input type="checkbox" name="ingredient" value="37">간장</label>
+			<label><input type="checkbox" name="ingredient" value="38">고추장</label>
+			<label><input type="checkbox" name="ingredient" value="39">된장</label>
+			<label><input type="checkbox" name="ingredient" value="40">설탕</label>
+			<label><input type="checkbox" name="ingredient" value="41">소금</label>
+			<label><input type="checkbox" name="ingredient" value="42">맛소금</label>
+			<label><input type="checkbox" name="ingredient" value="43">후추</label>
+			<label><input type="checkbox" name="ingredient" value="44">참기름</label>
+			<label><input type="checkbox" name="ingredient" value="45">들기름</label>
+			<label><input type="checkbox" name="ingredient" value="46">식초</label>
+			<label><input type="checkbox" name="ingredient" value="47">고춧가루</label>
+			<label><input type="checkbox" name="ingredient" value="48">카레가루</label>
+			<label><input type="checkbox" name="ingredient" value="49">올리고당</label>
+			<label><input type="checkbox" name="ingredient" value="50">물엿</label>
+			<label><input type="checkbox" name="ingredient" value="51">꿀</label>
+			<label><input type="checkbox" name="ingredient" value="52">다시다</label>
+			<label><input type="checkbox" name="ingredient" value="53">맛술</label>
+			<label><input type="checkbox" name="ingredient" value="54">소주</label>
+			<label><input type="checkbox" name="ingredient" value="55">마요네즈</label>
+			<label><input type="checkbox" name="ingredient" value="56">케찹</label>
+			
+			<label><input type="checkbox" name="ingredient" value="57">햄</label>
+			<label><input type="checkbox" name="ingredient" value="58">소세지</label>
+			<label><input type="checkbox" name="ingredient" value="59">베이컨</label>
+			<label><input type="checkbox" name="ingredient" value="60">어묵</label>
+			<label><input type="checkbox" name="ingredient" value="61">만두</label>
+			
+			<label><input type="checkbox" name="ingredient" value="62">김</label>
+			<label><input type="checkbox" name="ingredient" value="63">멸치</label>
+			<label><input type="checkbox" name="ingredient" value="64">다시마</label>
+			<label><input type="checkbox" name="ingredient" value="65">버터</label>
+			<label><input type="checkbox" name="ingredient" value="66">김치</label>
 			</div>
 			
 <input type="hidden" name="choiceMenu" value="1">
