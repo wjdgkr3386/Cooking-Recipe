@@ -288,30 +288,17 @@
 		});
 
 		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-		window.addEventListener('pageshow', function(event) {
-			const title = window.sessionStorage.getItem("title");
-			const r_code = window.sessionStorage.getItem("r_code");
-			const content = window.sessionStorage.getItem("content");
-		    if (title) {
-		        $("[name='title']").val(title);
-		    }
-		    if (r_code) {
-		        $("[name='r_code']").val(r_code);
-		    }
-		    if (content) {
-		        $(".editor").html(content);
-		    }
-		    window.sessionStorage.removeItem("title");
-		    window.sessionStorage.removeItem("r_code");
-		    window.sessionStorage.removeItem("content");
-		});
-
-		//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 		window.addEventListener("load", function () {
 		    const [navigation] = performance.getEntriesByType("navigation");
 		    if (navigation && navigation.type === "reload") {
-		        $(".title").val('');
+		    	alert("새로고침");
+		        $("[name='title']").val('');
+		        $("[name='r_code']").val('');
 		        $(".editor").html('');
+			    
+		        window.sessionStorage.removeItem("title");
+		        window.sessionStorage.removeItem("r_code");
+		        window.sessionStorage.removeItem("content");
 		    }
 		});
     }//init 종료ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -477,12 +464,12 @@
 
 	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     function goSaved(){
-    	const content = $(".editor").html();
-    	const title = $("[name='title']").val();
-    	const r_code = $("[name='r_code']").val();
-    	window.sessionStorage.setItem("content", content);
-    	window.sessionStorage.setItem("title", title);
-    	window.sessionStorage.setItem("r_code", r_code);
+    	const content = $(".editor");
+    	const title = $("[name='title']");
+    	const r_code = $("[name='r_code']");
+    	window.sessionStorage.setItem("content", content.html());
+    	window.sessionStorage.setItem("title", title.val());
+    	window.sessionStorage.setItem("r_code", r_code.val());
     	location.href="/write/saved.do";
     }
 

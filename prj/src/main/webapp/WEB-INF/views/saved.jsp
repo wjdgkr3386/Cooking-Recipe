@@ -25,7 +25,6 @@
 		left: 1%;
 		width:40px;
 		height: 70%;
-		border: 1px solid black;
 		font-size: 30px;
 		font-weight: 700;
 		position: absolute;
@@ -71,8 +70,8 @@
 function load(r_code, title, uuid, content, foodImgBase64){
 	if(!confirm("임시글을 불러오면\n작성 중인 글은 사라집니다.\n선택한 글을 불러오시겠습니까?")){
 		return;
-	} 
-
+	}
+	
 	$("[name='r_code']").val(r_code);
 	$("[name='title']").val(title);
 	$("[name='uuid']").val(uuid);
@@ -114,7 +113,7 @@ function deleteRecipe(r_code){
 </head>
 <body>
 <div class="header">
-	<span class="headerBack" onclick="history.back();">></span>
+	<span class="headerBack" onclick="history.back();">&lt</span>
 	<span class="headerText">임시글</span>
 </div>
 <div class="body-div">

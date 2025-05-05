@@ -136,7 +136,8 @@
 			from
 				temp_recipe r
 				left join temp_recipe_content rc on r.r_code=rc.r_code
-				left join ingredient i on r.ingredient=i.ingredient_code
+				left join temp_recipe_ingredient ri on ri.r_code=r.r_code
+				left join ingredient i on i.ingredient_code=ri.ingredient_code
 			where
 				r.uuid=(select uuid from user_info where mid=#{mid})
 	</select>
