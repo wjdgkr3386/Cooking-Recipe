@@ -291,7 +291,6 @@
 		window.addEventListener("load", function () {
 		    const [navigation] = performance.getEntriesByType("navigation");
 		    if (navigation && navigation.type === "reload") {
-		    	alert("새로고침");
 		        $("[name='title']").val('');
 		        $("[name='r_code']").val('');
 		        $(".editor").html('');
