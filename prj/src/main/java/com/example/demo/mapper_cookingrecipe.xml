@@ -253,15 +253,24 @@
 			where
 				r.r_code = ri.r_code
 				<if test="ingredient!=null and ingredient.size>0">
-	                and
-	                not exists( 
-	                    select 1 from recipe_ingredient where ingredient_code not in (	
-			                <foreach item="i" collection="ingredient" separator=" , ">
-			                    #{i}
-			                </foreach>			
-	                    )  
-	                )
-                </if>
+				and
+			    r.r_code in (
+					SELECT ri.r_code
+					FROM recipe_ingredient ri
+					GROUP BY ri.r_code
+					HAVING COUNT(*) = SUM(
+					  CASE
+					    WHEN ri.ingredient_code IN (
+							<foreach item="i" collection="ingredient" separator=" , ">
+		                      #{i}
+							</foreach> 
+					    )
+					    THEN 1
+					    ELSE 0
+					  END
+					)
+				)
+				</if>
 	    <![CDATA[
 	        ) zxcvb) where  RNUM  >= 1  and RNUM <= 30
 	    ]]>
