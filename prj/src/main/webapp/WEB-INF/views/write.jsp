@@ -61,6 +61,7 @@
 		background-color: #FFF5F8;
 		border: none;
 		font-size: 20px;
+        outline: none;
 	}
     .toolbar {
         margin: 20px 10px;

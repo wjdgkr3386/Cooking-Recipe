@@ -97,6 +97,7 @@
 		border-top: 1px solid #edd8e8;
 		border-bottom: 1px solid #edd8e8;
 		position: fixed;
+		background-color:white;
 		bottom: 0;
 	}
 	.heart{
@@ -266,6 +267,8 @@ function jjim(){
 		</p>
 	</div>
 </div>
+<!-- 밑에 bottom-div 가 화면을 가리는 것을 방지 -->
+<div style="height:100px;"></div>
 <div class="bottom-div">
 	<c:choose>
 		<c:when test="${requestScope.heartCnt==0}">
