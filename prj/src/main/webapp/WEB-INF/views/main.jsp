@@ -18,7 +18,7 @@
 		box-sizing: border-box;
 		position: absolute;
 		display: inline-block;
-		width: 1640px;
+		width: 1240px;
 		height: 100%;
 		left: 0;
 		overflow-y: auto;
@@ -68,13 +68,13 @@
 		overflow-x: hidden;
 	}
 	.card{
-		height: 485px;
-		width: 485px;
+		height: 355px;
+		width: 355px;
 		box-sizing: border-box;
 	}
 	.image{
-		width:485px;
-		height: 485px;
+		width:355px;
+		height: 355px;
 		box-sizing: border-box;
 		border-radius: 10px;
 		box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.3);
@@ -92,7 +92,7 @@
 		padding: 5px;
 	}
 	.menubar{
-		width: 2000px;
+		width: 1600px;
 		height: 50px;
 		display: flex;
 		gap: 200px;
@@ -229,7 +229,7 @@
 </head>
 <body>
 	<h1 style="margin-top:50px; text-align:center; cursor:pointer;" onclick="location.reload()">Cooking Recipe</h1>
-	<div style="text-align:right; width:2000px; margin:0 auto;">
+	<div style="text-align:right; width:1600px; margin:0 auto;">
 		<c:if test="${empty requestScope.mid}">
 			<span style="cursor:pointer;" onclick="location.href='/login.do'">
 				로그인
@@ -252,7 +252,7 @@
 		<span class="item" onclick="location.href='/myPage.do'">마이페이지</span>
 		<span class="item" onclick="location.href='/notice.do'">공지사항</span>
 	</div>
-	<div style="width:2000px; height:800px; position: relative; margin: 0 auto;">
+	<div style="width:1600px; height:800px; position: relative; margin: 0 auto;">
 		<div class="recipe_container">
 			<table class="recipe_table">
 				<c:if test="${requestScope.recipeListSize > 0}">

@@ -75,7 +75,7 @@
 	}
 	.postBtn{
 		width: 820px;
-		height: 100px;
+		height: 70px;
 		border-radius:15px;
 		font-size: 25px;
 		border:none;
@@ -83,8 +83,8 @@
 	}
 	.postBtn-div{
 		width:1640px;
-		height:100px;
-		margin:30 auto;
+		height:70px;
+		margin:30 auto 10;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
