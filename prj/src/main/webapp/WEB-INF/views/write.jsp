@@ -577,6 +577,7 @@
 	    <div class="upload-box" onclick="$('#foodImg').click()">
 	    	완성된 음식 사진을 올려주세요.
 	    </div>
+    	<input type="file" id="foodImg" name="foodImg" style="display:none;">
 		<div class="ingredient-checkbox">
 			<label><input type="checkbox" name="ingredient" value="1">양파</label>
 			<label><input type="checkbox" name="ingredient" value="2">감자</label>
@@ -652,7 +653,6 @@
 			<label><input type="checkbox" name="ingredient" value="66">김치</label>
 		</div>
     </div>
-    <input type="file" id="foodImg" name="foodImg" style="display:none;">
     
     <div class="bottomSavebar">
     	<span class="bottomCancel" onclick="cancel()">

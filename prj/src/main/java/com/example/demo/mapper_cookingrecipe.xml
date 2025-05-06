@@ -193,7 +193,7 @@
 	</update>
 	
 	<update id="updateImg" parameterType="com.example.demo.CookingRecipeDTO">
-		update recipe_img set img=#{img} where r_code=#{r_code}
+		update recipe_img set img=#{foodImgBase64} where r_code=#{r_code}
 	</update>
 	
 	<select id="checkHeart" parameterType="java.util.HashMap" resultType="int">

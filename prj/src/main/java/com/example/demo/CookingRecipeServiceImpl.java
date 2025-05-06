@@ -94,6 +94,9 @@ public class CookingRecipeServiceImpl implements CookingRecipeService {
 		
 		MultipartFile img = cookingRecipeDTO.getFoodImg();
 		if(img != null && !img.isEmpty()) {
+			if(Util.convertImgToBase64(cookingRecipeDTO) == -20) {
+				throw new RuntimeException("-20");
+			}
 			cookingRecipeDAO.updateImg(cookingRecipeDTO);
 		}
 		

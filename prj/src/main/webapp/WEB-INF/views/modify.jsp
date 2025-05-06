@@ -529,6 +529,7 @@
 	    <div class="upload-box" onclick="$('#foodImg').click()">
 	    	<img src="data:image/jpeg;base64, ${requestScope.postMap.FOODIMG}" alt="Profile Picture" style="width:100%; height:100%; object-fit:fill; border-radius:10px;">
 	    </div>
+    	<input type="file" id="foodImg" name="foodImg" style="display:none;">
 		<div class="ingredient-checkbox">
 			<label><input type="checkbox" name="ingredient" value="1">양파</label>
 			<label><input type="checkbox" name="ingredient" value="2">감자</label>
