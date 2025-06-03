@@ -78,3 +78,5 @@ INSERT INTO ingredient (ingredient_code, ingredient_name) VALUES (63, '멸치');
 INSERT INTO ingredient (ingredient_code, ingredient_name) VALUES (64, '다시마');
 INSERT INTO ingredient (ingredient_code, ingredient_name) VALUES (65, '버터');
 INSERT INTO ingredient (ingredient_code, ingredient_name) VALUES (66, '김치');
+
+commit;

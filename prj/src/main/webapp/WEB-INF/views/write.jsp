@@ -370,9 +370,11 @@
 
 	//ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
     function uploadPost(){
+		
     	const content = $(".editor").html();
     	const title = $("[name='title']").val().trim();
     	const foodImg = $("input[name='foodImg']");
+    	const uploadBox = $('.upload-box');
     	const ingredient = $("[name='ingredient']");
     	
     	if(title===""){
@@ -409,7 +411,7 @@
         
     	$("[name='content']").val(content);
     	$("[name='r_code']").val(rCode(17));
-    	
+
     	var formObj = $("[name='contentForm']");
 		ajax(
 			"/writeInsertProc.do",
@@ -423,7 +425,8 @@
 					location.replace("/login.do");
 				}else if(cnt== -18){
 					alert("완성된 요리의 사진이 지정된 확장자가 아닙니다. jpg, jpeg, jfif, png");
-					$("#foodImg").val('');
+					foodImg.val('');
+					uploadBox.html('완성된 음식 사진을 올려주세요.');
 				}else if(cnt== -20){
 					alert("완성된 요리의 사진에 문제가 있습니다.");
 				}else if(cnt==0){
